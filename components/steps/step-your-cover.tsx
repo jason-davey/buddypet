@@ -341,14 +341,30 @@ export function StepYourCover() {
     const calculateAdjustedPrice = (base: number, freq: Frequency) => {
       let adjusted = base
 
-      // Add plan-specific booster care costs (actual observed costs)
+      // Add excess-specific booster care costs (actual observed costs)
       if (newBoosterCare) {
         const boosterCosts = {
-          Gold: { Fortnightly: 8.3, Monthly: 17.99, Yearly: 197.11 },
-          Silver: { Fortnightly: 7.53, Monthly: 16.31, Yearly: 178.82 },
-          Bronze: { Fortnightly: 5.91, Monthly: 12.81, Yearly: 140.87 },
+          Gold: {
+            0: { Fortnightly: 8.3, Monthly: 17.99, Yearly: 197.11 },
+            200: { Fortnightly: 4.94, Monthly: 10.7, Yearly: 117.65 }, // New $200 excess costs
+            500: { Fortnightly: 3.5, Monthly: 7.58, Yearly: 83.38 }, // Estimated $500 excess costs
+          },
+          Silver: {
+            0: { Fortnightly: 7.53, Monthly: 16.31, Yearly: 178.82 },
+            200: { Fortnightly: 4.48, Monthly: 9.71, Yearly: 106.81 }, // New $200 excess costs
+            500: { Fortnightly: 3.2, Monthly: 6.93, Yearly: 76.23 }, // Estimated $500 excess costs
+          },
+          Bronze: {
+            0: { Fortnightly: 5.91, Monthly: 12.81, Yearly: 140.87 },
+            200: { Fortnightly: 3.53, Monthly: 7.65, Yearly: 84.15 }, // New $200 excess costs
+            // Bronze doesn't have $500 excess option
+          },
         }
-        adjusted += boosterCosts[plan.id][freq]
+
+        const excessKey = newExcess as keyof typeof boosterCosts.Gold
+        if (boosterCosts[plan.id][excessKey]) {
+          adjusted += boosterCosts[plan.id][excessKey][freq]
+        }
       }
 
       // Add routine care costs (keeping estimated costs for now)
