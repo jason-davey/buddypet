@@ -508,7 +508,7 @@ export function StepYourCover() {
           <div className="row-start-3 -mx-8 flex h-auto items-center gap-4 rounded-lg bg-buddy-bg-light p-6 md:row-start-1 md:mx-0 xl:h-48">
             <Image
               className="w-24 flex-shrink-0 mix-blend-darken sm:w-32 lg:-mt-7"
-              src="/animal-welfare-badge.webp"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/animal-welfare-badge.8804d18d-BazoJNwyiGwfCWMyhSwGt1il9bV3bh.webp"
               alt="Animal Welfare - $1M guaranteed support"
               width={128}
               height={128}
