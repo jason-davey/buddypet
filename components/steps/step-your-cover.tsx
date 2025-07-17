@@ -344,9 +344,9 @@ export function StepYourCover() {
       // Add plan-specific booster care costs (actual observed costs)
       if (newBoosterCare) {
         const boosterCosts = {
-          Gold: { Fortnightly: 7.58, Monthly: 17.99, Yearly: 197.11 },
-          Silver: { Fortnightly: 6.88, Monthly: 16.31, Yearly: 178.82 },
-          Bronze: { Fortnightly: 5.42, Monthly: 12.81, Yearly: 140.87 },
+          Gold: { Fortnightly: 8.3, Monthly: 17.99, Yearly: 197.11 },
+          Silver: { Fortnightly: 7.53, Monthly: 16.31, Yearly: 178.82 },
+          Bronze: { Fortnightly: 5.91, Monthly: 12.81, Yearly: 140.87 },
         }
         adjusted += boosterCosts[plan.id][freq]
       }
