@@ -424,7 +424,7 @@ export function StepYourCover() {
   return (
     <div className="w-full">
       <form
-        className="mx-auto w-full max-w-container overflow-hidden rounded-lg bg-white lg:mb-6 lg:shadow-lg"
+        className="mx-auto w-full max-w-container overflow-hidden bg-white lg:mx-8 lg:my-6 lg:rounded-lg lg:shadow-lg"
         onSubmit={(e) => {
           e.preventDefault()
           handleContinue()
@@ -521,7 +521,10 @@ export function StepYourCover() {
             <div className="grid w-full gap-2 md:gap-3">
               <p className="flex justify-between text-base font-bold sm:text-2xl">
                 <span>
-                  Total Per <span className="capitalize">{frequency.toLowerCase()}</span>
+                  Total Per{" "}
+                  <span className="capitalize">
+                    {frequency === "Fortnightly" ? "Fortnight" : frequency.toLowerCase()}
+                  </span>
                 </span>
                 <span>{currentPlanDetails ? `$${currentPlanDetails.price[frequency].toFixed(2)}` : "-"}</span>
               </p>
