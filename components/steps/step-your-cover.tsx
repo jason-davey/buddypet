@@ -320,17 +320,17 @@ export function StepYourCover() {
     // Use actual observed pricing data instead of multipliers
     const pricingData = {
       Gold: {
-        0: { Fortnightly: 87.04, Monthly: 188.56, Yearly: 2089.87 }, // Estimated based on 2.015x pattern
+        0: { Fortnightly: 69.76, Monthly: 151.15, Yearly: 1663.48 }, // Actual observed
         200: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Actual baseline
         500: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.57 }, // Actual observed
       },
       Silver: {
-        0: { Fortnightly: 75.91, Monthly: 164.48, Yearly: 1810.62 }, // Estimated based on 2.015x pattern
+        0: { Fortnightly: 60.29, Monthly: 130.63, Yearly: 1437.6 }, // Actual observed
         200: { Fortnightly: 37.68, Monthly: 81.63, Yearly: 898.01 }, // Actual baseline
         500: { Fortnightly: 28.85, Monthly: 62.5, Yearly: 687.5 }, // Actual observed
       },
       Bronze: {
-        0: { Fortnightly: 63.95, Monthly: 138.56, Yearly: 1524.22 }, // Estimated based on 2.015x pattern
+        0: { Fortnightly: 48.34, Monthly: 104.74, Yearly: 1152.24 }, // Actual observed
         200: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.48 }, // Actual baseline
         // Bronze doesn't have $500 excess option
       },
