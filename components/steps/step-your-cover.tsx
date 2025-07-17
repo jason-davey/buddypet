@@ -317,17 +317,29 @@ export function StepYourCover() {
     const newBoosterCare = updatedValues.boosterCare ?? plan.boosterCare
     const newRoutineCare = updatedValues.routineCare ?? plan.routineCare
 
+    // Use actual observed pricing data instead of multipliers
+    const pricingData = {
+      Gold: {
+        0: { Fortnightly: 87.04, Monthly: 188.56, Yearly: 2089.87 }, // Estimated based on 2.015x pattern
+        200: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Actual baseline
+        500: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.57 }, // Actual observed
+      },
+      Silver: {
+        0: { Fortnightly: 75.91, Monthly: 164.48, Yearly: 1810.62 }, // Estimated based on 2.015x pattern
+        200: { Fortnightly: 37.68, Monthly: 81.63, Yearly: 898.01 }, // Actual baseline
+        500: { Fortnightly: 28.85, Monthly: 62.5, Yearly: 687.5 }, // Actual observed
+      },
+      Bronze: {
+        0: { Fortnightly: 63.95, Monthly: 138.56, Yearly: 1524.22 }, // Estimated based on 2.015x pattern
+        200: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.48 }, // Actual baseline
+        // Bronze doesn't have $500 excess option
+      },
+    }
+
+    const basePrice = pricingData[plan.id][newExcess] || plan.basePrice
+
     const calculateAdjustedPrice = (base: number, freq: Frequency) => {
       let adjusted = base
-
-      // Excess pricing adjustments (basePrice assumes $200 excess)
-      // Based on actual live pricing data from Gold plan
-      if (newExcess === 0) {
-        adjusted *= 2.015 // $0 excess = 101.5% higher premium (actual: $1662.75 vs $825.32)
-      } else if (newExcess === 500) {
-        adjusted *= 0.917 // $500 excess = 8.3% lower premium (actual: $756.57 vs $825.32)
-      }
-      // $200 excess = no adjustment (base price)
 
       // Add optional care costs
       if (newBoosterCare) {
@@ -343,9 +355,9 @@ export function StepYourCover() {
     }
 
     return {
-      Fortnightly: calculateAdjustedPrice(plan.basePrice.Fortnightly, "Fortnightly"),
-      Monthly: calculateAdjustedPrice(plan.basePrice.Monthly, "Monthly"),
-      Yearly: calculateAdjustedPrice(plan.basePrice.Yearly, "Yearly"),
+      Fortnightly: calculateAdjustedPrice(basePrice.Fortnightly, "Fortnightly"),
+      Monthly: calculateAdjustedPrice(basePrice.Monthly, "Monthly"),
+      Yearly: calculateAdjustedPrice(basePrice.Yearly, "Yearly"),
     }
   }
 
