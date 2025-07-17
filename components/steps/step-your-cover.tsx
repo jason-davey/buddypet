@@ -321,8 +321,10 @@ export function StepYourCover() {
 
       // Excess pricing adjustments (basePrice assumes $200 excess)
       if (newExcess === 0) {
-        adjusted *= 1.2 // $0 excess = 20% higher premium
+        // Based on the image: $1662.75 / $1037.15 = 1.603
+        adjusted *= 1.603 // $0 excess = 60.3% higher premium
       } else if (newExcess === 500) {
+        // Assuming $500 excess gives a discount from base price
         adjusted *= 0.85 // $500 excess = 15% lower premium
       }
       // $200 excess = no adjustment (base price)
