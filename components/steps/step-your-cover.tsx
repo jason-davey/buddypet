@@ -33,8 +33,8 @@ const initialPlans: Plan[] = [
   {
     id: "Gold",
     name: "Gold Cover",
-    price: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 },
-    basePrice: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 },
+    price: { Fortnightly: 38.09, Monthly: 82.53, Yearly: 825.32 }, // Updated to match $200 excess base
+    basePrice: { Fortnightly: 38.09, Monthly: 82.53, Yearly: 825.32 }, // Updated base price
     excess: 200,
     benefitPercentage: 90,
     benefitLimit: 35000,
@@ -43,6 +43,7 @@ const initialPlans: Plan[] = [
     boosterCare: false,
     routineCare: false,
   },
+  // Keep Silver and Bronze the same for now
   {
     id: "Silver",
     name: "Silver Cover",
@@ -320,11 +321,11 @@ export function StepYourCover() {
       let adjusted = base
 
       // Excess pricing adjustments (basePrice assumes $200 excess)
-      // Applied consistently across all plan tiers
+      // Based on actual live pricing data from Gold plan
       if (newExcess === 0) {
-        adjusted *= 1.603 // $0 excess = 60.3% higher premium (based on Gold plan data)
+        adjusted *= 2.015 // $0 excess = 101.5% higher premium (actual: $1662.75 vs $825.32)
       } else if (newExcess === 500) {
-        adjusted *= 0.85 // $500 excess = 15% lower premium
+        adjusted *= 0.917 // $500 excess = 8.3% lower premium (actual: $756.57 vs $825.32)
       }
       // $200 excess = no adjustment (base price)
 
