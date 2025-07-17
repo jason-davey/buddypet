@@ -319,22 +319,25 @@ export function StepYourCover() {
     const calculateAdjustedPrice = (base: number, freq: Frequency) => {
       let adjusted = base
 
-      // Excess adjustment
-      if (newExcess === 0) adjusted *= 1.2
-      else if (newExcess === 500) adjusted *= 0.85
+      // Excess pricing adjustments (basePrice assumes $200 excess)
+      if (newExcess === 0) {
+        adjusted *= 1.2 // $0 excess = 20% higher premium
+      } else if (newExcess === 500) {
+        adjusted *= 0.85 // $500 excess = 15% lower premium
+      }
+      // $200 excess = no adjustment (base price)
 
-      // Optional care flat rate additions
+      // Add optional care costs
       if (newBoosterCare) {
-        if (freq === "Fortnightly") adjusted += 5
-        if (freq === "Monthly") adjusted += 10.83
-        if (freq === "Yearly") adjusted += 130
+        const boosterCosts = { Fortnightly: 5, Monthly: 10.83, Yearly: 130 }
+        adjusted += boosterCosts[freq]
       }
       if (newRoutineCare) {
-        if (freq === "Fortnightly") adjusted += 3
-        if (freq === "Monthly") adjusted += 6.5
-        if (freq === "Yearly") adjusted += 78
+        const routineCosts = { Fortnightly: 3, Monthly: 6.5, Yearly: 78 }
+        adjusted += routineCosts[freq]
       }
-      return adjusted
+
+      return Math.round(adjusted * 100) / 100 // Round to 2 decimal places
     }
 
     return {
@@ -514,7 +517,9 @@ export function StepYourCover() {
               height={128}
             />
             <p className="text-left">
-              <strong className="block text-xl xl:text-2xl font-extrabold">Supporting Australia's animal welfare community</strong>
+              <strong className="block text-xl xl:text-2xl font-extrabold">
+                Supporting Australia's animal welfare community
+              </strong>
               <span className="text-sm text-gray-600">
                 At Buddy we're committed to giving $1 million in support to animal welfare, vet welfare, and animal
                 research charities and organisations across Australia.
