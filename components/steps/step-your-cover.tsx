@@ -367,9 +367,13 @@ export function StepYourCover() {
         }
       }
 
-      // Add routine care costs (keeping estimated costs for now)
+      // Add routine care costs (actual observed costs - flat rate across all plans)
       if (newRoutineCare) {
-        const routineCosts = { Fortnightly: 3, Monthly: 6.5, Yearly: 78 }
+        const routineCosts = {
+          Fortnightly: 2.82, // $73.33 / 26 fortnights
+          Monthly: 6.11, // $73.33 / 12 months
+          Yearly: 73.33, // Actual observed cost
+        }
         adjusted += routineCosts[freq]
       }
 
