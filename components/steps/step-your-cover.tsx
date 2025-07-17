@@ -341,11 +341,17 @@ export function StepYourCover() {
     const calculateAdjustedPrice = (base: number, freq: Frequency) => {
       let adjusted = base
 
-      // Add optional care costs
+      // Add plan-specific booster care costs (actual observed costs)
       if (newBoosterCare) {
-        const boosterCosts = { Fortnightly: 5, Monthly: 10.83, Yearly: 130 }
-        adjusted += boosterCosts[freq]
+        const boosterCosts = {
+          Gold: { Fortnightly: 7.58, Monthly: 16.43, Yearly: 197.11 },
+          Silver: { Fortnightly: 6.88, Monthly: 14.9, Yearly: 178.82 },
+          Bronze: { Fortnightly: 5.42, Monthly: 11.74, Yearly: 140.87 },
+        }
+        adjusted += boosterCosts[plan.id][freq]
       }
+
+      // Add routine care costs (keeping estimated costs for now)
       if (newRoutineCare) {
         const routineCosts = { Fortnightly: 3, Monthly: 6.5, Yearly: 78 }
         adjusted += routineCosts[freq]
