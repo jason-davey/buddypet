@@ -422,9 +422,9 @@ export function StepYourCover() {
   const currentPlanDetails = selectedPlan ? plans.find((p) => p.id === selectedPlan) : null
 
   return (
-    <div className="w-full">
+    <div className="w-full lg:px-8 lg:py-6">
       <form
-        className="mx-auto w-full max-w-container overflow-hidden bg-white lg:mx-8 lg:my-6 lg:rounded-lg lg:shadow-lg"
+        className="mx-auto w-full max-w-container overflow-hidden bg-white lg:rounded-lg lg:shadow-lg"
         onSubmit={(e) => {
           e.preventDefault()
           handleContinue()
