@@ -33,8 +33,8 @@ const initialPlans: Plan[] = [
   {
     id: "Gold",
     name: "Gold Cover",
-    price: { Fortnightly: 38.09, Monthly: 82.53, Yearly: 825.32 }, // Updated to match $200 excess base
-    basePrice: { Fortnightly: 38.09, Monthly: 82.53, Yearly: 825.32 }, // Updated base price
+    price: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Updated to match live prices
+    basePrice: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Updated base price
     excess: 200,
     benefitPercentage: 90,
     benefitLimit: 35000,
@@ -43,7 +43,7 @@ const initialPlans: Plan[] = [
     boosterCare: false,
     routineCare: false,
   },
-  // Keep Silver and Bronze the same for now
+  // Silver and Bronze remain the same as they're already correct
   {
     id: "Silver",
     name: "Silver Cover",
