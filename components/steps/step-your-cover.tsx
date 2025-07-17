@@ -514,7 +514,7 @@ export function StepYourCover() {
               height={128}
             />
             <p className="text-left">
-              <strong className="block text-xl xl:text-2xl">Supporting Australia's animal welfare community</strong>
+              <strong className="block text-xl xl:text-2xl font-extrabold">Supporting Australia's animal welfare community</strong>
               <span className="text-sm text-gray-600">
                 At Buddy we're committed to giving $1 million in support to animal welfare, vet welfare, and animal
                 research charities and organisations across Australia.
