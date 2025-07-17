@@ -320,11 +320,10 @@ export function StepYourCover() {
       let adjusted = base
 
       // Excess pricing adjustments (basePrice assumes $200 excess)
+      // Applied consistently across all plan tiers
       if (newExcess === 0) {
-        // Based on the image: $1662.75 / $1037.15 = 1.603
-        adjusted *= 1.603 // $0 excess = 60.3% higher premium
+        adjusted *= 1.603 // $0 excess = 60.3% higher premium (based on Gold plan data)
       } else if (newExcess === 500) {
-        // Assuming $500 excess gives a discount from base price
         adjusted *= 0.85 // $500 excess = 15% lower premium
       }
       // $200 excess = no adjustment (base price)
