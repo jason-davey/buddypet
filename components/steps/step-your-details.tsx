@@ -240,21 +240,23 @@ export function StepYourDetails() {
 
                 {/* Second section - Did you know */}
                 <div className="flex flex-col gap-2 pr-5 lg:pr-2">
-                  <div className="flex items-center gap-1">
-                    <h2 className="font-semibold text-gray-900 leading-5">Did you know?</h2>
-                  </div>
-                  <p className="text-gray-700 text-sm leading-5 md:text-base md:leading-6">
+                  <div className="sticky top-20 z-50">
+                    <div className="flex items-center gap-1">
+                      <h2 className="font-semibold text-gray-900 leading-5">Did you know?</h2>
+                    </div>
+                    <p className="text-gray-700 text-sm leading-5 md:text-base md:leading-6">
                     Once covered, you'll get <strong className="text-pink-600">24/7 Live Vet Support</strong>, exclusive
                     pet discounts and perks with <strong className="text-pink-600">myPetPass™</strong> and access to
                     easy on-the-spot claims with <strong className="text-pink-600">GapOnly®</strong>.{" "}
-                    <button
-                      type="button"
-                      className="z-40 -m-4 p-0 pb-1 px-[9px] relative -top-[1px]"
-                      aria-label="Show tooltip info"
-                    >
+                      <button
+                        type="button"
+                        className="z-40 -m-4 p-0 pb-1 px-[9px] relative -top-[1px]"
+                        aria-label="Show tooltip info"
+                      >
                       <Info className="inline-block h-4 w-4" />
-                    </button>
-                  </p>
+                      </button>
+                    </p>
+                  </div>
                 </div>
 
                 {/* Charlie image - positioned in grid */}
