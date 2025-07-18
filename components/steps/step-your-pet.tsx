@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Calendar } from "lucide-react"
+import { Plus, Calendar, Info } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -118,6 +118,38 @@ export function StepYourPet() {
 
   return (
     <div className="w-full max-w-container mx-auto lg:grid lg:grid-cols-[1fr_auto] lg:gap-8 lg:items-start pl-8 pr-4 mt-5">
+      {/* Mobile callout card - appears at top on mobile */}
+      <div className="block lg:hidden mx-4 mt-4 mb-6 absolute top-0 left-0 right-0 z-40">
+        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-md">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <h3 className="font-semibold text-gray-900 mb-2 text-base">Hi, I'm Charlie</h3>
+              <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                I'll be helping you protect your fur-bestie today.
+              </p>
+              <div className="space-y-2 text-sm">
+                <div>
+                  <strong className="text-gray-900">Did you know?</strong>
+                </div>
+                <p className="text-gray-700 leading-relaxed">
+                  Once covered, you'll get <strong className="text-pink-600">24/7 Live Vet Support</strong>, exclusive
+                  pet discounts and perks with <strong className="text-pink-600">myPetPass™</strong> and access to easy
+                  on-the-spot claims with <strong className="text-pink-600">GapOnly®</strong>.
+                </p>
+              </div>
+            </div>
+            <div className="flex-shrink-0">
+              <Image
+                src="/charlie.webp"
+                alt="Charlie the dog"
+                width={64}
+                height={64}
+                className="w-16 h-16 object-cover rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <Card className="bg-white shadow-lg rounded-lg w-full mb-8">
         <CardContent className="p-6 sm:p-8">
           <p className="text-sm md:text-base text-gray-700 mb-6">
@@ -419,19 +451,52 @@ export function StepYourPet() {
         </CardContent>
       </Card>
 
-      <div className="hidden lg:block w-[320px]">
-        <div className="sticky top-24">
-          <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-4">
-            <Image
-              src="/placeholder.svg?width=64&height=64"
-              alt="Charlie the dog"
-              width={64}
-              height={64}
-              className="rounded-md"
-            />
-            <div>
-              <h3 className="font-bold text-lg text-gray-800">Hi, I'm Charlie</h3>
-              <p className="text-sm text-gray-600">I'll be helping you protect your fur-bestie today.</p>
+      {/* Callout Card - Desktop Only, positioned to align with form top and sticky with proper margin */}
+      <div className="hidden lg:block w-full max-w-[424px]">
+        <div className="sticky top-20 z-50">
+          {/* Triangle arrow pointing left - exact match to live site */}
+          <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
+
+          {/* Main callout content */}
+          <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
+            {/* First section - You're almost there */}
+            <div className="flex flex-col gap-2 pr-5 lg:pr-2">
+              <div className="flex items-center gap-1">
+                <h2 className="font-semibold text-gray-900 leading-5">Hi, I'm Charlie</h2>
+              </div>
+              <p className="text-gray-700 text-sm leading-5 md:text-base md:leading-6">
+                I'll be helping you protect your fur-bestie today.
+              </p>
+            </div>
+
+            {/* Second section - Did you know */}
+            <div className="flex flex-col gap-2 pr-5 lg:pr-2">
+              <div className="flex items-center gap-1">
+                <h2 className="font-semibold text-gray-900 leading-5">Did you know?</h2>
+              </div>
+              <p className="text-gray-700 text-sm leading-5 md:text-base md:leading-6">
+                Once covered, you'll get <strong className="text-pink-600">24/7 Live Vet Support</strong>, exclusive pet
+                discounts and perks with <strong className="text-pink-600">myPetPass™</strong> and access to easy
+                on-the-spot claims with <strong className="text-pink-600">GapOnly®</strong>.{" "}
+                <button
+                  type="button"
+                  className="z-40 -m-4 p-0 pb-1 px-[9px] relative -top-[1px]"
+                  aria-label="Show tooltip info"
+                >
+                  <Info className="inline-block h-4 w-4" />
+                </button>
+              </p>
+            </div>
+
+            {/* Charlie image - positioned in grid */}
+            <div className="col-start-2 row-start-1 flex justify-end self-end row-end-3">
+              <Image
+                src="/charlie.webp"
+                alt="Charlie the dog"
+                width={88}
+                height={88}
+                className="max-w-[88px] object-cover"
+              />
             </div>
           </div>
         </div>
