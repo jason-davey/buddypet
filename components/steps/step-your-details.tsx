@@ -49,7 +49,13 @@ export function StepYourDetails() {
               </div>
             </div>
             <div className="flex-shrink-0">
-              <img src="/charlie.webp" alt="Charlie the dog" className="w-16 h-16 object-cover rounded-lg" />
+              <Image
+                src="/charlie.webp"
+                alt="Charlie the dog"
+                width={64}
+                height={64}
+                className="w-16 h-16 object-cover rounded-lg"
+              />
             </div>
           </div>
         </div>
@@ -266,7 +272,13 @@ export function StepYourDetails() {
               </div>
             </div>
             <div className="flex-shrink-0">
-              <img src="/charlie.webp" alt="Charlie the dog" className="w-20 h-20 object-cover rounded-lg" />
+              <Image
+                src="/charlie.webp"
+                alt="Charlie the dog"
+                width={80}
+                height={80}
+                className="w-20 h-20 object-cover rounded-lg"
+              />
             </div>
           </div>
         </div>
