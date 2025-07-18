@@ -220,9 +220,9 @@ export function StepYourDetails() {
             </Card>
           </div>
 
-          {/* Callout Card - Desktop Only, positioned to align with form top */}
+          {/* Callout Card - Desktop Only, sticky positioned */}
           <div className="hidden lg:block w-full max-w-[424px]">
-            <div className="relative">
+            <div className="sticky top-6 z-50">
               {/* Triangle arrow pointing left - exact match to live site */}
               <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
