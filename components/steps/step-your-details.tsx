@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Image from "next/image"
-import { Info } from "lucide-react"
+import { Info } from 'lucide-react'
 
 export function StepYourDetails() {
   const { state, dispatch } = useQuote()
@@ -29,8 +29,8 @@ export function StepYourDetails() {
 
   return (
     <div className="flex flex-col min-h-screen bg-buddy-bg-light relative">
-      {/* Fixed Callout Card - Desktop Only, positioned like progress stepper */}
-      <div className="hidden lg:block fixed top-32 right-8 w-[424px] z-50">
+      {/* Fixed Callout Card - Desktop Only, positioned to match form top margin */}
+      <div className="hidden lg:block fixed top-10 right-8 w-[424px] z-50" style={{ top: 'calc(2.5rem + 1rem)' }}>
         {/* Triangle arrow pointing left - exact match to live site */}
         <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
