@@ -221,10 +221,10 @@ export function StepYourDetails() {
           </div>
 
           {/* Callout Card - Desktop Only, positioned to align with form top */}
-          <div className="hidden lg:block w-full max-w-[400px]">
-            <div className="relative top-0 z-50 flex h-min w-full items-start sticky lg:top-6 lg:-mt-6">
-              {/* Triangle arrow pointing left */}
-              <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block shadow-md"></div>
+          <div className="hidden lg:block w-full max-w-[424px]">
+            <div className="relative">
+              {/* Triangle arrow pointing left - exact match to live site */}
+              <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
               {/* Main callout content */}
               <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
