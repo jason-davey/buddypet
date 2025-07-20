@@ -453,7 +453,7 @@ export function StepYourPet() {
 
       {/* Callout Card - Desktop Only, positioned to align with form top and sticky with proper margin */}
       <div className="hidden lg:block w-full max-w-[424px]">
-        <div className="sticky top-[11.25rem] z-50">
+        <div className="sticky top-24 z-50">
           {/* Triangle arrow pointing left - exact match to live site */}
           <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
