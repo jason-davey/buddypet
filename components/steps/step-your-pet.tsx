@@ -447,7 +447,7 @@ export function StepYourPet() {
                   </p>
                 </div>
 
-                /*{/* Second section - Did you know */}
+                {/*{/* Second section - Did you know 
                 <div className="flex flex-col gap-2 pr-5 lg:pr-2">
                   <div className="flex items-center gap-1">
                     <h2 className="font-semibold text-gray-900 leading-5">Did you know?</h2>
@@ -465,7 +465,7 @@ export function StepYourPet() {
                     </button>
                   </p>
                 </div>
-                */
+                */}
 
                 {/* Charlie image - positioned in grid */}
                 <div className="col-start-2 row-start-1 flex justify-end self-end row-end-3">
