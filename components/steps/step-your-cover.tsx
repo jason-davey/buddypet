@@ -373,7 +373,7 @@ const ConfirmationAccordion = ({
             </span>
             <button
               type="button"
-              className="relative text-pink-500 underline hover:no-underline"
+              className="relative text-pink-700 underline hover:no-underline"
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
             >
