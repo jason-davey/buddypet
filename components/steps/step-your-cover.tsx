@@ -7,7 +7,7 @@ import Image from "next/image"
 import { useQuote } from "../quote-context"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Tag, Check, HelpCircle, Minus, Plus } from "lucide-react"
+import { Tag, Check, HelpCircle, Minus, Plus, Info } from "lucide-react"
 
 type Price = { Fortnightly: number; Monthly: number; Yearly: number }
 
@@ -19,7 +19,7 @@ interface Plan {
   id: PlanName
   name: string
   price: Price
-  basePrice: Price // Add this line
+  basePrice: Price
   excess: Excess
   benefitPercentage: number
   benefitLimit: number
@@ -33,8 +33,8 @@ const initialPlans: Plan[] = [
   {
     id: "Gold",
     name: "Gold Cover",
-    price: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Updated to match live prices
-    basePrice: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Updated base price
+    price: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 },
+    basePrice: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 },
     excess: 200,
     benefitPercentage: 90,
     benefitLimit: 35000,
@@ -43,7 +43,6 @@ const initialPlans: Plan[] = [
     boosterCare: false,
     routineCare: false,
   },
-  // Silver and Bronze remain the same as they're already correct
   {
     id: "Silver",
     name: "Silver Cover",
@@ -304,6 +303,128 @@ const CoverPlanCard = ({
   )
 }
 
+const ConfirmationAccordion = ({
+  plan,
+  petName,
+  onConfirm,
+  showError,
+}: {
+  plan: Plan
+  petName: string
+  onConfirm: (confirmed: boolean) => void
+  showError: boolean
+}) => {
+  const [showTooltip, setShowTooltip] = useState(false)
+
+  return (
+    <div className="px-4 py-6 sm:px-8">
+      <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative">
+        {/* Speech bubble arrow pointing up */}
+        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-2">
+          <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-gray-800 mx-auto mb-1"></div>
+        </div>
+
+        <h4 className="font-semibold text-gray-900 mb-4">
+          You have selected {plan.name} and acknowledge the level of protection and following benefits are right for you
+          and your pet:
+        </h4>
+
+        <ul className="list-disc list-inside mb-6 space-y-2 text-sm">
+          <li>
+            the benefit percentage of <strong>{plan.benefitPercentage}%</strong> and overall annual limit of{" "}
+            <strong>${plan.benefitLimit.toLocaleString()}</strong>.
+          </li>
+        </ul>
+
+        <h5 className="font-semibold text-gray-900 mb-4">You are comfortable and agree that you can afford to pay:</h5>
+
+        <ul className="list-disc list-inside mb-6 space-y-2 text-sm">
+          <li>
+            the applicable premium for this policy period, which will increase each year and be shared with you at least
+            14 days prior to your next renewal for consideration;
+          </li>
+          <li className="flex items-start gap-2">
+            <span>•</span>
+            <span>
+              the vet invoice in full and upfront before submitting a claim for eligible vet expenses unless you use
+              GapOnly*, in which case you will only need to pay the gap upfront;
+            </span>
+            <Info className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
+          </li>
+          <li>
+            any vet expenses above the accepted claim amount. This includes any amount above the benefit percentage,
+            benefit limit and any other applicable limits that may apply for some conditions, treatments or benefits as
+            outlined in the table above.
+          </li>
+        </ul>
+
+        <div className="mb-6 relative">
+          <p className="text-sm mb-4">
+            <span>
+              Lastly, you acknowledge that this product does not provide cover for chronic pre-existing conditions or
+              for general exclusions listed in the PDS.{" "}
+            </span>
+            <button
+              type="button"
+              className="relative text-pink-500 underline hover:no-underline"
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              <Info className="inline h-4 w-4" />
+            </button>
+          </p>
+
+          {showTooltip && (
+            <div className="absolute z-10 bg-gray-800 text-white p-4 rounded-lg shadow-lg max-w-md text-sm right-0 top-full mt-2">
+              <h6 className="font-semibold mb-2">Pre-Existing Conditions</h6>
+              <p className="mb-2">A pre-existing condition is a condition that first existed or occurred:</p>
+              <ul className="list-disc list-inside mb-2 space-y-1">
+                <li>prior to the commencement date of your first policy period; or</li>
+                <li>within any applicable waiting period;</li>
+              </ul>
+              <p className="mb-2">
+                <strong>AND</strong>
+              </p>
+              <p className="mb-2">
+                is a condition that you were aware of, or a reasonable person in your circumstances would have been
+                aware of, irrespective of whether the underlying or causative condition has been diagnosed.
+              </p>
+              <p>
+                Whether it is a pre-existing condition will depend on its nature and experience. If your pet has a
+                temporary condition that has not existed, occurred or shown noticeable signs, symptoms or an abnormality
+                in the 18-month period immediately prior to your claim treatment date, it will no longer be excluded
+                from cover as a pre-existing condition. Chronic conditions and several other specified conditions that
+                are pre-existing conditions cannot fall within this category. For more information, please refer to the
+                relevant PDS.
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="flex gap-4 mb-4">
+          <Button
+            type="button"
+            onClick={() => onConfirm(true)}
+            variant="outline"
+            className="rounded-full border-pink-500 text-pink-500 hover:bg-pink-500/10 bg-transparent px-8"
+          >
+            Yes
+          </Button>
+          <Button
+            type="button"
+            onClick={() => onConfirm(false)}
+            className="rounded-full bg-pink-500 text-white hover:bg-pink-600 px-8"
+          >
+            No
+          </Button>
+        </div>
+
+        {showError && <p className="text-red-500 text-sm font-medium">You must select 'Yes' to proceed.</p>}
+      </div>
+    </div>
+  )
+}
+
 export function StepYourCover() {
   const { state, dispatch } = useQuote()
   const { pet } = state
@@ -311,28 +432,28 @@ export function StepYourCover() {
   const [plans, setPlans] = useState<Plan[]>(initialPlans)
   const [selectedPlan, setSelectedPlan] = useState<PlanName | null>(null)
   const [isExpanded, setIsExpanded] = useState(true)
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [confirmationError, setConfirmationError] = useState(false)
 
   const calculatePrice = (plan: Plan, updatedValues: Partial<Plan>): Price => {
     const newExcess = updatedValues.excess ?? plan.excess
     const newBoosterCare = updatedValues.boosterCare ?? plan.boosterCare
     const newRoutineCare = updatedValues.routineCare ?? plan.routineCare
 
-    // Use actual observed pricing data instead of multipliers
     const pricingData = {
       Gold: {
-        0: { Fortnightly: 69.76, Monthly: 151.15, Yearly: 1663.48 }, // Actual observed
-        200: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 }, // Actual baseline
-        500: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.57 }, // Actual observed
+        0: { Fortnightly: 69.76, Monthly: 151.15, Yearly: 1663.48 },
+        200: { Fortnightly: 43.52, Monthly: 94.28, Yearly: 1037.15 },
+        500: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.57 },
       },
       Silver: {
-        0: { Fortnightly: 60.29, Monthly: 130.63, Yearly: 1437.6 }, // Actual observed
-        200: { Fortnightly: 37.68, Monthly: 81.63, Yearly: 898.01 }, // Actual baseline
-        500: { Fortnightly: 28.85, Monthly: 62.5, Yearly: 687.5 }, // Actual observed
+        0: { Fortnightly: 60.29, Monthly: 130.63, Yearly: 1437.6 },
+        200: { Fortnightly: 37.68, Monthly: 81.63, Yearly: 898.01 },
+        500: { Fortnightly: 28.85, Monthly: 62.5, Yearly: 687.5 },
       },
       Bronze: {
-        0: { Fortnightly: 48.34, Monthly: 104.74, Yearly: 1152.24 }, // Actual observed
-        200: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.48 }, // Actual baseline
-        // Bronze doesn't have $500 excess option
+        0: { Fortnightly: 48.34, Monthly: 104.74, Yearly: 1152.24 },
+        200: { Fortnightly: 31.74, Monthly: 68.77, Yearly: 756.48 },
       },
     }
 
@@ -341,23 +462,21 @@ export function StepYourCover() {
     const calculateAdjustedPrice = (base: number, freq: Frequency) => {
       let adjusted = base
 
-      // Add excess-specific booster care costs (actual observed costs)
       if (newBoosterCare) {
         const boosterCosts = {
           Gold: {
             0: { Fortnightly: 8.3, Monthly: 17.99, Yearly: 197.11 },
-            200: { Fortnightly: 4.94, Monthly: 10.7, Yearly: 117.65 }, // New $200 excess costs
-            500: { Fortnightly: 3.5, Monthly: 7.58, Yearly: 83.38 }, // Estimated $500 excess costs
+            200: { Fortnightly: 4.94, Monthly: 10.7, Yearly: 117.65 },
+            500: { Fortnightly: 3.5, Monthly: 7.58, Yearly: 83.38 },
           },
           Silver: {
             0: { Fortnightly: 7.53, Monthly: 16.31, Yearly: 178.82 },
-            200: { Fortnightly: 4.48, Monthly: 9.71, Yearly: 106.81 }, // New $200 excess costs
-            500: { Fortnightly: 3.2, Monthly: 6.93, Yearly: 76.23 }, // Estimated $500 excess costs
+            200: { Fortnightly: 4.48, Monthly: 9.71, Yearly: 106.81 },
+            500: { Fortnightly: 3.2, Monthly: 6.93, Yearly: 76.23 },
           },
           Bronze: {
             0: { Fortnightly: 5.91, Monthly: 12.81, Yearly: 140.87 },
-            200: { Fortnightly: 3.53, Monthly: 7.65, Yearly: 84.15 }, // New $200 excess costs
-            // Bronze doesn't have $500 excess option
+            200: { Fortnightly: 3.53, Monthly: 7.65, Yearly: 84.15 },
           },
         }
 
@@ -367,17 +486,16 @@ export function StepYourCover() {
         }
       }
 
-      // Add routine care costs (actual observed costs - flat rate across all plans)
       if (newRoutineCare) {
         const routineCosts = {
-          Fortnightly: 2.82, // $73.33 / 26 fortnights
-          Monthly: 6.11, // $73.33 / 12 months
-          Yearly: 73.33, // Actual observed cost
+          Fortnightly: 2.82,
+          Monthly: 6.11,
+          Yearly: 73.33,
         }
         adjusted += routineCosts[freq]
       }
 
-      return Math.round(adjusted * 100) / 100 // Round to 2 decimal places
+      return Math.round(adjusted * 100) / 100
     }
 
     return {
@@ -399,19 +517,34 @@ export function StepYourCover() {
     )
   }
 
+  const handleSelectPlan = (planId: PlanName) => {
+    setSelectedPlan(planId)
+    setShowConfirmation(true)
+    setConfirmationError(false)
+  }
+
+  const handleConfirmation = (confirmed: boolean) => {
+    if (confirmed) {
+      const finalPlan = plans.find((p) => p.id === selectedPlan)
+      if (finalPlan) {
+        dispatch({
+          type: "UPDATE_COVER_DETAILS",
+          payload: {
+            plan: finalPlan.id.toLowerCase() as "gold" | "silver" | "bronze",
+            paymentFrequency: frequency,
+            ...finalPlan,
+          },
+        })
+        dispatch({ type: "NEXT_STEP" })
+      }
+    } else {
+      setConfirmationError(true)
+    }
+  }
+
   const handleContinue = () => {
-    const finalPlan = plans.find((p) => p.id === selectedPlan)
-    if (finalPlan) {
-      dispatch({
-        type: "UPDATE_COVER_DETAILS",
-        payload: {
-          plan: finalPlan.id.toLowerCase() as "gold" | "silver" | "bronze",
-          // @ts-ignore
-          paymentFrequency: frequency,
-          ...finalPlan,
-        },
-      })
-      dispatch({ type: "NEXT_STEP" })
+    if (selectedPlan && showConfirmation) {
+      handleConfirmation(true)
     }
   }
 
@@ -484,13 +617,25 @@ export function StepYourCover() {
                   plan={plan}
                   frequency={frequency}
                   isSelected={selectedPlan === plan.id}
-                  onSelect={() => setSelectedPlan(plan.id)}
+                  onSelect={() => handleSelectPlan(plan.id)}
                   onUpdate={(updatedValues) => handleUpdatePlan(plan.id, updatedValues)}
                 />
               ))}
             </div>
           )}
         </section>
+
+        {/* Confirmation Accordion */}
+        {showConfirmation && selectedPlan && currentPlanDetails && (
+          <section className="border-t border-gray-200">
+            <ConfirmationAccordion
+              plan={currentPlanDetails}
+              petName={pet.name || "your pet"}
+              onConfirm={handleConfirmation}
+              showError={confirmationError}
+            />
+          </section>
+        )}
 
         <div className="mt-6 grid flex-col justify-normal gap-4 border-t border-teal-500/25 px-9 pt-6 pb-0 text-center md:mt-0 md:grid-cols-2 md:justify-between md:gap-x-8 md:gap-y-10 md:pb-6">
           <div className="flex flex-col gap-3 pb-6 md:px-0 md:pb-0">
@@ -543,7 +688,7 @@ export function StepYourCover() {
               </Button>
               <Button
                 type="submit"
-                disabled={!selectedPlan}
+                disabled={!selectedPlan || !showConfirmation}
                 className="h-16 w-full rounded-full border border-pink-500 bg-pink-500 text-white hover:enabled:bg-pink-600 hover:enabled:border-pink-600 focus:outline-2 disabled:pointer-events-none disabled:opacity-50 md:max-w-full"
               >
                 Continue
