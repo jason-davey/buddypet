@@ -308,19 +308,26 @@ const ConfirmationAccordion = ({
   petName,
   onConfirm,
   showError,
+  selectedPlan,
 }: {
   plan: Plan
   petName: string
   onConfirm: (confirmed: boolean) => void
   showError: boolean
+  selectedPlan: PlanName
 }) => {
   const [showTooltip, setShowTooltip] = useState(false)
 
   return (
     <div className="px-4 py-6 sm:px-8">
       <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative">
-        {/* Speech bubble arrow pointing up */}
-        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-2">
+        {/* Speech bubble arrow pointing up - positioned under selected plan */}
+        <div
+          className={cn(
+            "absolute -top-3 bg-white px-2",
+            selectedPlan === "Bronze" ? "left-1/6" : selectedPlan === "Silver" ? "left-1/2" : "right-1/6",
+          )}
+        >
           <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-gray-800 mx-auto mb-1"></div>
         </div>
 
@@ -627,12 +634,13 @@ export function StepYourCover() {
 
         {/* Confirmation Accordion */}
         {showConfirmation && selectedPlan && currentPlanDetails && (
-          <section className="border-t border-gray-200">
+          <section>
             <ConfirmationAccordion
               plan={currentPlanDetails}
               petName={pet.name || "your pet"}
               onConfirm={handleConfirmation}
               showError={confirmationError}
+              selectedPlan={selectedPlan}
             />
           </section>
         )}
