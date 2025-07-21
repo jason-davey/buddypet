@@ -320,7 +320,7 @@ const ConfirmationAccordion = ({
 
   return (
     <div className="px-4 py-6 sm:px-8">
-      <div className="border-0 border-gray-800 rounded-lg p-6 mb-6 relative">
+      <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative">
         {/* Speech bubble arrow pointing up - positioned under selected plan */}
         <div
           className={cn(
