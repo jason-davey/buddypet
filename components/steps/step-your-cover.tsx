@@ -324,7 +324,7 @@ const ConfirmationAccordion = ({
         {/* Speech bubble arrow pointing up - positioned under selected plan */}
         <div
           className={cn(
-            "absolute -top-3 bg-white px-2",
+            "absolute -top-3 bg-white px-0",
             selectedPlan === "Bronze" ? "left-1/6" : selectedPlan === "Silver" ? "left-1/2" : "right-1/6",
           )}
         >
