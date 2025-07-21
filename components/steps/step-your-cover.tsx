@@ -413,7 +413,7 @@ const ConfirmationAccordion = ({
             type="button"
             onClick={() => onConfirm(true)}
             variant="outline"
-            className="rounded-full border-pink-500 text-pink-500 hover:bg-pink-500/10 bg-transparent px-8"
+            className="rounded-full border-pink-700 text-pink-700 hover:bg-pink-700/10 bg-transparent px-8"
           >
             Yes
           </Button>
