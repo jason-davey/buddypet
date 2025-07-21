@@ -320,15 +320,16 @@ const ConfirmationAccordion = ({
 
   return (
     <div className="px-4 py-6 sm:px-8">
-      <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative">
+      <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative mt-4">
         {/* Speech bubble arrow pointing up - positioned under selected plan */}
         <div
           className={cn(
             "absolute -top-3 bg-white px-0",
-            selectedPlan === "Bronze" ? "left-1/6" : selectedPlan === "Silver" ? "left-1/2" : "right-1/6",
+            selectedPlan === "Bronze" ? "left-[16.67%]" : selectedPlan === "Silver" ? "left-[50%]" : "left-[83.33%]",
+            "transform -translate-x-1/2",
           )}
         >
-          <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[10px] border-b-gray-800 mx-auto mb-1"></div>
+          <div className="w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[12px] border-b-gray-800"></div>
         </div>
 
         <h4 className="font-semibold text-gray-900 mb-4">
