@@ -325,7 +325,7 @@ const ConfirmationAccordion = ({
         <div
           className={cn(
             "absolute -top-3 bg-white px-0",
-            selectedPlan === "Bronze" ? "left-[16.67%]" : selectedPlan === "Silver" ? "left-[50%]" : "left-[83.33%]",
+            selectedPlan === "Bronze" ? "left-[83.33%]" : selectedPlan === "Silver" ? "left-[50%]" : "left-[16.67%]",
             "transform -translate-x-1/2",
           )}
         >
