@@ -89,7 +89,7 @@ export function StepTermsConditions() {
               <div className="flex items-start gap-4">
                 <div
                   className="w-16 h-16 bg-cover bg-center bg-no-repeat rounded-full"
-                  style={{ backgroundImage: "url('/dog-mascot.webp')" }}
+                  style={{ backgroundImage: "url('/charlie.webp')" }}
                 />
                 <div>
                   <h3 className="font-semibold text-blue-900 mb-2">Thanks, nearly there!</h3>
