@@ -13,14 +13,11 @@ function PageContent() {
     <div className="flex flex-col min-h-screen bg-buddy-bg-light">
       <Header />
       {state.currentStep > 1 && <ProgressBar />}
-      <div className="flex-grow relative pb-16">
+      <div className="flex-grow relative">
         <main className="relative z-20">
           <QuoteForm />
         </main>
-      </div>
 
-      {/* Background elements with bottoms locked to top of footer */}
-      <div className="relative h-0">
         <div className="absolute bottom-0 right-8 z-10 w-1/3 max-w-xs lg:max-w-md hidden lg:block pointer-events-none">
           <Image
             src="/dalmatian-mascot.svg"
@@ -42,7 +39,6 @@ function PageContent() {
           />
         </div>
       </div>
-
       <Footer />
     </div>
   )

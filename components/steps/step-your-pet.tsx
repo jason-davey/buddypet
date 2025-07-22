@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Plus, Calendar } from "lucide-react"
+import { Plus, Calendar, Info } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
 
@@ -145,7 +145,7 @@ export function StepYourPet() {
                         className={cn("mt-2", errors.name && "border-red-500 focus-visible:ring-red-500")}
                         placeholder="Pet's name"
                       />
-                      {errors.name && <p className="text-sm text-red-500 mt-1 font-medium">{errors.name}</p>}
+                      {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name}</p>}
                     </div>
 
                     <div>
@@ -168,7 +168,7 @@ export function StepYourPet() {
                           Female
                         </Button>
                       </div>
-                      {errors.gender && <p className="text-sm text-red-500 mt-1 font-medium">{errors.gender}</p>}
+                      {errors.gender && <p className="text-sm text-red-500 mt-1">{errors.gender}</p>}
                     </div>
 
                     <div>
@@ -199,7 +199,7 @@ export function StepYourPet() {
                           Unknown
                         </Button>
                       </div>
-                      {errors.desexed && <p className="text-sm text-red-500 mt-1 font-medium">{errors.desexed}</p>}
+                      {errors.desexed && <p className="text-sm text-red-500 mt-1">{errors.desexed}</p>}
                     </div>
 
                     <div>
@@ -213,7 +213,7 @@ export function StepYourPet() {
                         className={cn("mt-2", errors.breed && "border-red-500 focus-visible:ring-red-500")}
                         placeholder="Enter breed"
                       />
-                      {errors.breed && <p className="text-sm text-red-500 mt-1 font-medium">{errors.breed}</p>}
+                      {errors.breed && <p className="text-sm text-red-500 mt-1">{errors.breed}</p>}
                       <p className="text-sm text-gray-500 mt-1">
                         If you can't find your pet's dominant breed or cross-breed, please enter small, medium or large
                         breed based on expected size when fully grown. We factor in each breed's typical claim history
@@ -232,7 +232,7 @@ export function StepYourPet() {
                         />
                         <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
                       </div>
-                      {errors.age && <p className="text-sm text-red-500 mt-1 font-medium">{errors.age}</p>}
+                      {errors.age && <p className="text-sm text-red-500 mt-1">{errors.age}</p>}
                       <p className="text-sm text-gray-500 mt-1">
                         To qualify for any Buddy Pet Insurance policies, your pet needs to be younger than 9 years of
                         age when you first take out a policy.
@@ -273,9 +273,7 @@ export function StepYourPet() {
                           className={cn("mt-2", errors.firstName && "border-red-500 focus-visible:ring-red-500")}
                           placeholder="First name"
                         />
-                        {errors.firstName && (
-                          <p className="text-sm text-red-500 mt-1 font-medium">{errors.firstName}</p>
-                        )}
+                        {errors.firstName && <p className="text-sm text-red-500 mt-1">{errors.firstName}</p>}
                       </div>
 
                       <div>
@@ -289,7 +287,7 @@ export function StepYourPet() {
                           className={cn("mt-2", errors.lastName && "border-red-500 focus-visible:ring-red-500")}
                           placeholder="Last name"
                         />
-                        {errors.lastName && <p className="text-sm text-red-500 mt-1 font-medium">{errors.lastName}</p>}
+                        {errors.lastName && <p className="text-sm text-red-500 mt-1">{errors.lastName}</p>}
                       </div>
 
                       <div>
@@ -302,9 +300,7 @@ export function StepYourPet() {
                           />
                           <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
                         </div>
-                        {errors.dateOfBirth && (
-                          <p className="text-sm text-red-500 mt-1 font-medium">{errors.dateOfBirth}</p>
-                        )}
+                        {errors.dateOfBirth && <p className="text-sm text-red-500 mt-1">{errors.dateOfBirth}</p>}
                         <p className="text-sm text-gray-500 mt-1">
                           You must be over 18 years old to apply for Buddy Pet Insurance.
                         </p>
@@ -321,7 +317,7 @@ export function StepYourPet() {
                           className={cn("mt-2", errors.postcode && "border-red-500 focus-visible:ring-red-500")}
                           placeholder="Postcode"
                         />
-                        {errors.postcode && <p className="text-sm text-red-500 mt-1 font-medium">{errors.postcode}</p>}
+                        {errors.postcode && <p className="text-sm text-red-500 mt-1">{errors.postcode}</p>}
                       </div>
 
                       <div>
@@ -348,7 +344,7 @@ export function StepYourPet() {
                             <SelectItem value="NT">NT</SelectItem>
                           </SelectContent>
                         </Select>
-                        {errors.state && <p className="text-sm text-red-500 mt-1 font-medium">{errors.state}</p>}
+                        {errors.state && <p className="text-sm text-red-500 mt-1">{errors.state}</p>}
                         <p className="text-sm text-gray-500 mt-1">Your pet must reside with you to be eligible.</p>
                       </div>
 
@@ -364,7 +360,7 @@ export function StepYourPet() {
                           className={cn("mt-2", errors.phone && "border-red-500 focus-visible:ring-red-500")}
                           placeholder="Mobile or landline with area code"
                         />
-                        {errors.phone && <p className="text-sm text-red-500 mt-1 font-medium">{errors.phone}</p>}
+                        {errors.phone && <p className="text-sm text-red-500 mt-1">{errors.phone}</p>}
                         <p className="text-sm text-gray-500 mt-1">
                           Please include an area code if entering a landline number.
                         </p>
@@ -382,25 +378,18 @@ export function StepYourPet() {
                           className={cn("mt-2", errors.email && "border-red-500 focus-visible:ring-red-500")}
                           placeholder="name@domain.com"
                         />
-                        {errors.email && <p className="text-sm text-red-500 mt-1 font-medium">{errors.email}</p>}
+                        {errors.email && <p className="text-sm text-red-500 mt-1">{errors.email}</p>}
                         <p className="text-sm text-gray-500 mt-1">
                           Providing us with your email address enables us to email your quote.
                         </p>
                       </div>
                     </div>
 
-                    <div className="my-6 flex items-center justify-left">
-                      <iframe
-                        title="reCAPTCHA"
-                        width="304"
-                        height="78"
-                        role="presentation"
-                        name="a-g465i2rviqg8"
-                        frameBorder="0"
-                        scrolling="no"
-                        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
-                        src="https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LcTbS4rAAAAAP7Qp28DvV8y-owSPzFtDIiL8ZnP&co=aHR0cHM6Ly9wZXQuYnVkZHlwZXRpbnN1cmFuY2UuY29tLmF1OjQ0Mw..&hl=en&v=3jpV4E_UA9gZWYy11LtggjoU&size=normal&sa=LOGIN&anchor-ms=20000&execute-ms=15000&cb=6kiid0homon9"
-                      />
+                    <div className="my-6 p-4 border rounded-md bg-gray-50 flex items-center justify-between">
+                      <Label htmlFor="robot" className="text-gray-700">
+                        I'm not a robot
+                      </Label>
+                      <Image src="/placeholder.svg?width=100&height=40" alt="reCAPTCHA" width={100} height={40} />
                     </div>
 
                     <div className="flex flex-col gap-4 pt-6">
@@ -458,6 +447,26 @@ export function StepYourPet() {
                   </p>
                 </div>
 
+                {/*{/* Second section - Did you know 
+                <div className="flex flex-col gap-2 pr-5 lg:pr-2">
+                  <div className="flex items-center gap-1">
+                    <h2 className="font-semibold text-gray-900 leading-5">Did you know?</h2>
+                  </div>
+                  <p className="text-gray-700 text-sm leading-5 md:text-base md:leading-6">
+                    Once covered, you'll get <strong className="text-pink-600">24/7 Live Vet Support</strong>, exclusive
+                    pet discounts and perks with <strong className="text-pink-600">myPetPass™</strong> and access to
+                    easy on-the-spot claims with <strong className="text-pink-600">GapOnly®</strong>.{" "}
+                    <button
+                      type="button"
+                      className="z-40 -m-4 p-0 pb-1 px-[9px] relative -top-[1px]"
+                      aria-label="Show tooltip info"
+                    >
+                      <Info className="inline-block h-4 w-4" />
+                    </button>
+                  </p>
+                </div>
+                */}
+
                 {/* Charlie image - positioned in grid */}
                 <div className="col-start-2 row-start-1 flex justify-end self-end row-end-3">
                   <Image
@@ -505,6 +514,29 @@ export function StepYourPet() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Dalmatian mascot */}
+      <div className="absolute bottom-0 right-8 z-10 w-1/3 max-w-xs lg:max-w-md hidden lg:block pointer-events-none">
+        <Image
+          src="/dalmatian-mascot.svg"
+          alt="Happy Dalmatian mascot"
+          width={500}
+          height={750}
+          className="w-full h-auto"
+        />
+      </div>
+
+      {/* Background wave */}
+      <div className="absolute bottom-0 left-0 w-full z-0 pointer-events-none">
+        <Image
+          src="/background-wave.svg"
+          alt=""
+          width={1440}
+          height={317}
+          className="w-full h-auto"
+          aria-hidden="true"
+        />
       </div>
     </div>
   )

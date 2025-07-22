@@ -172,7 +172,7 @@ export function StepProtectYourPet() {
               <div className="flex items-start gap-4">
                 <div
                   className="w-16 h-16 bg-cover bg-center bg-no-repeat rounded-full"
-                  style={{ backgroundImage: "url('/charlie.webp')" }}
+                  style={{ backgroundImage: "url('/dog-mascot.webp')" }}
                 />
                 <div>
                   <h3 className="font-semibold text-blue-900 mb-2">Hi, I'm Charlie</h3>
