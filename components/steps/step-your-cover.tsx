@@ -200,7 +200,7 @@ const CoverPlanCard = ({
     <div
       className={cn(
         "relative row-span-full flex w-full snap-center flex-col gap-6 rounded-xl border-2 bg-white shadow-lg transition-all",
-        isSelected ? "border-pink-500 ring-2 ring-pink-500" : "border-gray-200",
+        isSelected ? "border-black ring-2 ring-black" : "border-gray-200",
       )}
     >
       <div className="rounded-t-md bg-gray-800 p-4 text-center text-2xl font-semibold text-white">{plan.name}</div>
@@ -217,10 +217,8 @@ const CoverPlanCard = ({
           onClick={onSelect}
           variant={isSelected ? "default" : "outline"}
           className={cn(
-            "relative w-full rounded-full border-pink-500 py-2 font-semibold outline-offset-4 focus:outline-2",
-            isSelected
-              ? "bg-pink-500 text-white hover:bg-pink-600"
-              : "text-pink-500 hover:bg-pink-500/10 bg-transparent",
+            "relative w-full rounded-full border-black py-2 font-semibold outline-offset-4 focus:outline-2",
+            isSelected ? "bg-black text-white hover:bg-gray-800" : "text-black hover:bg-black/10 bg-transparent",
           )}
         >
           {isSelected ? "Selected" : "Select Cover"}
@@ -320,16 +318,18 @@ const ConfirmationAccordion = ({
 
   return (
     <div className="px-4 py-6 sm:px-8">
-      <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative -mt-10">
+      <div className="border-2 border-gray-800 rounded-lg p-6 mb-6 relative -mt-8">
         {/* Speech bubble arrow pointing up - positioned under selected plan */}
         <div
           className={cn(
-            "absolute -top-3 bg-white px-0",
+            "absolute -top-4 z-0",
             selectedPlan === "Bronze" ? "left-[83.33%]" : selectedPlan === "Silver" ? "left-[50%]" : "left-[16.67%]",
             "transform -translate-x-1/2",
           )}
         >
-          <div className="w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[12px] border-b-gray-800"></div>
+          <svg width="30" height="15" viewBox="0 0 30 15" className="fill-gray-800">
+            <polygon points="15,0 30,15 0,15" />
+          </svg>
         </div>
 
         <h4 className="font-semibold text-gray-900 mb-4">
@@ -414,14 +414,14 @@ const ConfirmationAccordion = ({
             type="button"
             onClick={() => onConfirm(true)}
             variant="outline"
-            className="rounded-full border-pink-500 text-pink-500 hover:bg-pink-500/10 bg-transparent px-8"
+            className="rounded-full border-pink-500 text-pink-500 hover:bg-pink-500/10 bg-transparent px-12 py-3"
           >
             Yes
           </Button>
           <Button
             type="button"
             onClick={() => onConfirm(false)}
-            className="rounded-full bg-pink-500 text-white hover:bg-pink-600 px-8"
+            className="rounded-full bg-pink-500 text-white hover:bg-pink-600 px-12 py-3"
           >
             No
           </Button>
