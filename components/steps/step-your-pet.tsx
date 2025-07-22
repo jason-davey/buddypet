@@ -3,216 +3,509 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useQuote } from "../quote-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { useQuote } from "@/components/quote-context"
-import { CatIcon } from "@/components/icons/cat-icon"
-import { DogIcon } from "@/components/icons/dog-icon"
+import { Plus, Calendar } from "lucide-react"
+import Image from "next/image"
+import { cn } from "@/lib/utils"
+
+interface FormErrors {
+  name?: string
+  gender?: string
+  desexed?: string
+  breed?: string
+  age?: string
+  firstName?: string
+  lastName?: string
+  dateOfBirth?: string
+  postcode?: string
+  state?: string
+  phone?: string
+  email?: string
+}
 
 export function StepYourPet() {
-  const { state, updateState, nextStep } = useQuote()
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [recaptchaCompleted, setRecaptchaCompleted] = useState(false)
+  const { state, dispatch } = useQuote()
+  const [petData, setPetData] = useState(state.pet)
+  const [personalData, setPersonalData] = useState(state.personalDetails)
+  const [errors, setErrors] = useState<FormErrors>({})
+
+  const clearError = (field: keyof FormErrors) => {
+    setErrors((prev) => {
+      const newErrors = { ...prev }
+      delete newErrors[field]
+      return newErrors
+    })
+  }
+
+  const handlePetInputChange = (field: keyof typeof petData, value: string) => {
+    if (value.trim() !== "") {
+      clearError(field as keyof FormErrors)
+    }
+    const updatedData = { ...petData, [field]: value }
+    setPetData(updatedData)
+    dispatch({ type: "UPDATE_PET", payload: updatedData })
+  }
+
+  const handlePersonalInputChange = (field: keyof typeof personalData, value: string) => {
+    if (value.trim() !== "") {
+      clearError(field as keyof FormErrors)
+    }
+    const updatedData = { ...personalData, [field]: value }
+    setPersonalData(updatedData)
+    dispatch({ type: "UPDATE_PERSONAL_DETAILS", payload: updatedData })
+  }
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {}
-
-    if (!state.petType) newErrors.petType = "Please select your pet type"
-    if (!state.petName?.trim()) newErrors.petName = "Pet name is required"
-    if (!state.petBreed?.trim()) newErrors.petBreed = "Pet breed is required"
-    if (!state.petAge) newErrors.petAge = "Pet age is required"
-    if (!state.petGender) newErrors.petGender = "Pet gender is required"
-    if (!recaptchaCompleted) newErrors.recaptcha = "Please complete the reCAPTCHA"
+    const newErrors: FormErrors = {}
+    if (!petData.name?.trim()) {
+      newErrors.name = "Please enter your pet's name."
+    }
+    if (!petData.gender) {
+      newErrors.gender = "Please select if your pet is male or female."
+    }
+    if (!petData.desexed) {
+      newErrors.desexed = "Please let us know if your pet is desexed."
+    }
+    if (!petData.breed?.trim()) {
+      newErrors.breed = "Please select your pet's breed. If you can't find the breed, enter 'Unknown'."
+    }
+    if (!petData.age) {
+      newErrors.age = "Please select the month and year your pet was born."
+    }
+    if (!personalData.firstName?.trim()) {
+      newErrors.firstName = "Please enter your first name."
+    }
+    if (!personalData.lastName?.trim()) {
+      newErrors.lastName = "Please enter your last name."
+    }
+    if (!personalData.dateOfBirth) {
+      newErrors.dateOfBirth = "Please select your date of birth. The policyholder must be over 18 years old."
+    }
+    if (!personalData.postcode?.trim()) {
+      newErrors.postcode = "Please enter your postcode."
+    }
+    if (!personalData.state) {
+      newErrors.state = "Please enter your state."
+    }
+    if (!personalData.phone?.trim()) {
+      newErrors.phone = "Please enter your phone number."
+    }
+    if (!personalData.email?.trim()) {
+      newErrors.email = "Please enter a valid email address in the format name@domain.com."
+    } else if (!/\S+@\S+\.\S+/.test(personalData.email)) {
+      newErrors.email = "Please enter a valid email address in the format name@domain.com."
+    }
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleContinue = (e: React.FormEvent) => {
     e.preventDefault()
-    if (validateForm()) {
-      nextStep()
+    if (state.devMode || validateForm()) {
+      dispatch({ type: "NEXT_STEP" })
     }
   }
 
-  const handlePetTypeSelect = (type: "dog" | "cat") => {
-    updateState({ petType: type })
-    if (errors.petType) {
-      setErrors((prev) => ({ ...prev, petType: "" }))
-    }
+  const handleBack = () => {
+    dispatch({ type: "PREV_STEP" })
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <Card className="bg-white shadow-lg">
-        <CardContent className="p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Tell us about your pet</h1>
-            <p className="text-gray-600">We need some basic information to provide you with an accurate quote</p>
+    <div className="flex flex-col min-h-screen bg-buddy-bg-light relative">
+      {/* Main Content Container */}
+      <div className="flex-grow relative z-20 flex items-start justify-start pt-4 lg:pt-10 px-4 lg:pl-12">
+        <div className="flex w-full max-w-7xl gap-8">
+          {/* Form Section */}
+          <div className="w-full max-w-[632px]">
+            <Card className="bg-white shadow-lg rounded-lg">
+              <CardContent className="p-6 sm:p-8">
+                <p className="text-sm md:text-base text-gray-700 mb-6">
+                  It only takes a few minutes to get a Buddy Pet Insurance quote. Simply complete this form to get a
+                  quote and apply online. We ask for your phone number so we can call you to answer any questions you
+                  may have and help you finalise your application.
+                </p>
+                <form onSubmit={handleContinue} noValidate>
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-semibold text-gray-900">Who are we protecting?</h2>
+
+                    <div>
+                      <Label htmlFor="petName" className="text-base font-semibold text-gray-800">
+                        What is your pet's name?
+                      </Label>
+                      <Input
+                        id="petName"
+                        value={petData.name || ""}
+                        onChange={(e) => handlePetInputChange("name", e.target.value)}
+                        className={cn("mt-2", errors.name && "border-red-500 focus-visible:ring-red-500")}
+                        placeholder="Pet's name"
+                      />
+                      {errors.name && <p className="text-sm text-red-500 mt-1 font-medium">{errors.name}</p>}
+                    </div>
+
+                    <div>
+                      <Label className="text-base font-semibold text-gray-800">Is your pet male or female?</Label>
+                      <div className="grid grid-cols-2 gap-4 mt-2">
+                        <Button
+                          type="button"
+                          variant={petData.gender === "male" ? "default" : "outline"}
+                          onClick={() => handlePetInputChange("gender", "male")}
+                          className={cn("w-full", errors.gender && "border-red-500")}
+                        >
+                          Male
+                        </Button>
+                        <Button
+                          type="button"
+                          variant={petData.gender === "female" ? "default" : "outline"}
+                          onClick={() => handlePetInputChange("gender", "female")}
+                          className={cn("w-full", errors.gender && "border-red-500")}
+                        >
+                          Female
+                        </Button>
+                      </div>
+                      {errors.gender && <p className="text-sm text-red-500 mt-1 font-medium">{errors.gender}</p>}
+                    </div>
+
+                    <div>
+                      <Label className="text-base font-semibold text-gray-800">Is your pet desexed?</Label>
+                      <div className="grid grid-cols-3 gap-4 mt-2">
+                        <Button
+                          type="button"
+                          variant={petData.desexed === "yes" ? "default" : "outline"}
+                          onClick={() => handlePetInputChange("desexed", "yes")}
+                          className={cn(errors.desexed && "border-red-500")}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          type="button"
+                          variant={petData.desexed === "no" ? "default" : "outline"}
+                          onClick={() => handlePetInputChange("desexed", "no")}
+                          className={cn(errors.desexed && "border-red-500")}
+                        >
+                          No
+                        </Button>
+                        <Button
+                          type="button"
+                          variant={petData.desexed === "unknown" ? "default" : "outline"}
+                          onClick={() => handlePetInputChange("desexed", "unknown")}
+                          className={cn(errors.desexed && "border-red-500")}
+                        >
+                          Unknown
+                        </Button>
+                      </div>
+                      {errors.desexed && <p className="text-sm text-red-500 mt-1 font-medium">{errors.desexed}</p>}
+                    </div>
+
+                    <div>
+                      <Label htmlFor="breed" className="text-base font-semibold text-gray-800">
+                        What breed is your pet?
+                      </Label>
+                      <Input
+                        id="breed"
+                        value={petData.breed || ""}
+                        onChange={(e) => handlePetInputChange("breed", e.target.value)}
+                        className={cn("mt-2", errors.breed && "border-red-500 focus-visible:ring-red-500")}
+                        placeholder="Enter breed"
+                      />
+                      {errors.breed && <p className="text-sm text-red-500 mt-1 font-medium">{errors.breed}</p>}
+                      <p className="text-sm text-gray-500 mt-1">
+                        If you can't find your pet's dominant breed or cross-breed, please enter small, medium or large
+                        breed based on expected size when fully grown. We factor in each breed's typical claim history
+                        to provide a quote. There are some breeds that are not legally available in Australia, and we
+                        don't insure. Please call us to discuss if you're unsure.
+                      </p>
+                    </div>
+
+                    <div>
+                      <Label className="text-base font-semibold text-gray-800">When was your pet born?</Label>
+                      <div className="relative mt-2">
+                        <Input
+                          type="date"
+                          onChange={(e) => handlePetInputChange("age", e.target.value)}
+                          className={cn("pr-10", errors.age && "border-red-500 focus-visible:ring-red-500")}
+                        />
+                        <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
+                      </div>
+                      {errors.age && <p className="text-sm text-red-500 mt-1 font-medium">{errors.age}</p>}
+                      <p className="text-sm text-gray-500 mt-1">
+                        To qualify for any Buddy Pet Insurance policies, your pet needs to be younger than 9 years of
+                        age when you first take out a policy.
+                      </p>
+                    </div>
+
+                    <div className="bg-gray-50 rounded-lg border p-6 my-6">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        Do you have another cat or dog you'd like to protect?
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Our multi-pet discount rewards pet-parents that insure more than one pet by giving{" "}
+                        <span className="font-semibold text-gray-800">10% off</span> each additional policy purchased.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full border-pink-500 text-pink-500 hover:bg-pink-50 hover:text-pink-600 bg-transparent"
+                      >
+                        <Plus className="mr-2 h-4 w-4" /> Add another pet
+                      </Button>
+                    </div>
+
+                    <div className="space-y-6 pt-6 border-t">
+                      <h2 className="text-2xl font-semibold text-gray-900">Tell us about yourself</h2>
+                      <p className="text-gray-600">
+                        We just need some basic details to provide you with an accurate quote.
+                      </p>
+
+                      <div>
+                        <Label htmlFor="firstName" className="text-base font-semibold text-gray-800">
+                          Your first name
+                        </Label>
+                        <Input
+                          id="firstName"
+                          value={personalData.firstName || ""}
+                          onChange={(e) => handlePersonalInputChange("firstName", e.target.value)}
+                          className={cn("mt-2", errors.firstName && "border-red-500 focus-visible:ring-red-500")}
+                          placeholder="First name"
+                        />
+                        {errors.firstName && (
+                          <p className="text-sm text-red-500 mt-1 font-medium">{errors.firstName}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label htmlFor="lastName" className="text-base font-semibold text-gray-800">
+                          Your last name
+                        </Label>
+                        <Input
+                          id="lastName"
+                          value={personalData.lastName || ""}
+                          onChange={(e) => handlePersonalInputChange("lastName", e.target.value)}
+                          className={cn("mt-2", errors.lastName && "border-red-500 focus-visible:ring-red-500")}
+                          placeholder="Last name"
+                        />
+                        {errors.lastName && <p className="text-sm text-red-500 mt-1 font-medium">{errors.lastName}</p>}
+                      </div>
+
+                      <div>
+                        <Label className="text-base font-semibold text-gray-800">Your date of birth</Label>
+                        <div className="relative mt-2">
+                          <Input
+                            type="date"
+                            onChange={(e) => handlePersonalInputChange("dateOfBirth", e.target.value)}
+                            className={cn("pr-10", errors.dateOfBirth && "border-red-500 focus-visible:ring-red-500")}
+                          />
+                          <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
+                        </div>
+                        {errors.dateOfBirth && (
+                          <p className="text-sm text-red-500 mt-1 font-medium">{errors.dateOfBirth}</p>
+                        )}
+                        <p className="text-sm text-gray-500 mt-1">
+                          You must be over 18 years old to apply for Buddy Pet Insurance.
+                        </p>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="postcode" className="text-base font-semibold text-gray-800">
+                          Your postcode
+                        </Label>
+                        <Input
+                          id="postcode"
+                          value={personalData.postcode || ""}
+                          onChange={(e) => handlePersonalInputChange("postcode", e.target.value)}
+                          className={cn("mt-2", errors.postcode && "border-red-500 focus-visible:ring-red-500")}
+                          placeholder="Postcode"
+                        />
+                        {errors.postcode && <p className="text-sm text-red-500 mt-1 font-medium">{errors.postcode}</p>}
+                      </div>
+
+                      <div>
+                        <Label htmlFor="state" className="text-base font-semibold text-gray-800">
+                          State
+                        </Label>
+                        <Select
+                          onValueChange={(value) => handlePersonalInputChange("state", value)}
+                          value={personalData.state || ""}
+                        >
+                          <SelectTrigger
+                            className={cn("mt-2", errors.state && "border-red-500 focus-visible:ring-red-500")}
+                          >
+                            <SelectValue placeholder="Please select" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="NSW">NSW</SelectItem>
+                            <SelectItem value="VIC">VIC</SelectItem>
+                            <SelectItem value="QLD">QLD</SelectItem>
+                            <SelectItem value="WA">WA</SelectItem>
+                            <SelectItem value="SA">SA</SelectItem>
+                            <SelectItem value="TAS">TAS</SelectItem>
+                            <SelectItem value="ACT">ACT</SelectItem>
+                            <SelectItem value="NT">NT</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {errors.state && <p className="text-sm text-red-500 mt-1 font-medium">{errors.state}</p>}
+                        <p className="text-sm text-gray-500 mt-1">Your pet must reside with you to be eligible.</p>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="phone" className="text-base font-semibold text-gray-800">
+                          Your phone number
+                        </Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          value={personalData.phone || ""}
+                          onChange={(e) => handlePersonalInputChange("phone", e.target.value)}
+                          className={cn("mt-2", errors.phone && "border-red-500 focus-visible:ring-red-500")}
+                          placeholder="Mobile or landline with area code"
+                        />
+                        {errors.phone && <p className="text-sm text-red-500 mt-1 font-medium">{errors.phone}</p>}
+                        <p className="text-sm text-gray-500 mt-1">
+                          Please include an area code if entering a landline number.
+                        </p>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="email" className="text-base font-semibold text-gray-800">
+                          Your email address
+                        </Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={personalData.email || ""}
+                          onChange={(e) => handlePersonalInputChange("email", e.target.value)}
+                          className={cn("mt-2", errors.email && "border-red-500 focus-visible:ring-red-500")}
+                          placeholder="name@domain.com"
+                        />
+                        {errors.email && <p className="text-sm text-red-500 mt-1 font-medium">{errors.email}</p>}
+                        <p className="text-sm text-gray-500 mt-1">
+                          Providing us with your email address enables us to email your quote.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="my-6 flex items-center justify-left">
+                      <iframe
+                        title="reCAPTCHA"
+                        width="304"
+                        height="78"
+                        role="presentation"
+                        name="a-g465i2rviqg8"
+                        frameBorder="0"
+                        scrolling="no"
+                        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
+                        src="https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LcTbS4rAAAAAP7Qp28DvV8y-owSPzFtDIiL8ZnP&co=aHR0cHM6Ly9wZXQuYnVkZHlwZXRpbnN1cmFuY2UuY29tLmF1OjQ0Mw..&hl=en&v=3jpV4E_UA9gZWYy11LtggjoU&size=normal&sa=LOGIN&anchor-ms=20000&execute-ms=15000&cb=6kiid0homon9"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-4 pt-6">
+                      <Button
+                        type="submit"
+                        className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-semibold rounded-full"
+                        data-gtm-event="step2-pet-submitted"
+                      >
+                        Compare your cover options
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleBack}
+                        className="w-full py-3 h-14 text-lg font-semibold rounded-full border-pink-500 text-gray-800 bg-transparent"
+                      >
+                        Back
+                      </Button>
+                    </div>
+                    <p className="text-xs text-gray-500 pt-4">
+                      By submitting this form you consent to receiving a phone call from us for the purpose of
+                      discussing and providing assistance with your insurance quote. You can opt out of receiving calls
+                      from us when we contact you or by contacting us on <span className="font-bold">1300 678 489</span>
+                      . You acknowledge that you have had an opportunity to review and consider the relevant{" "}
+                      <a href="#" className="text-pink-500 underline">
+                        Policy Booklet
+                      </a>{" "}
+                      and that your personal information is collected, used and disclosed in accordance with our{" "}
+                      <a href="#" className="text-pink-500 underline">
+                        Privacy Collection Notice
+                      </a>
+                      .
+                    </p>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Pet Type Selection */}
-            <div>
-              <Label className="text-base font-medium text-gray-900 mb-4 block">What type of pet do you have?</Label>
-              <div className="grid grid-cols-2 gap-4">
-                <button
-                  type="button"
-                  onClick={() => handlePetTypeSelect("dog")}
-                  className={`p-6 rounded-lg border-2 transition-all duration-200 ${
-                    state.petType === "dog" ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <DogIcon />
-                  <span className="block mt-2 font-medium">Dog</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handlePetTypeSelect("cat")}
-                  className={`p-6 rounded-lg border-2 transition-all duration-200 ${
-                    state.petType === "cat" ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <CatIcon />
-                  <span className="block mt-2 font-medium">Cat</span>
-                </button>
+          {/* Callout Card - Desktop Only, positioned to align with form top and sticky with proper margin */}
+          <div className="hidden lg:block w-full max-w-[424px]">
+            <div className="sticky top-40 z-50">
+              {/* Triangle arrow pointing left - exact match to live site */}
+              <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
+
+              {/* Main callout content */}
+              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
+                {/* First section - Hi, I'm Charlie */}
+                <div className="flex flex-col gap-2 pr-5 lg:pr-2">
+                  <div className="flex items-center gap-1">
+                    <h2 className="font-semibold text-gray-900 leading-5">Hi, I'm Charlie</h2>
+                  </div>
+                  <p className="text-gray-700 text-sm leading-5 md:text-base md:leading-6">
+                    I'll be helping you protect your fur-bestie today.
+                  </p>
+                </div>
+
+                {/* Charlie image - positioned in grid */}
+                <div className="col-start-2 row-start-1 flex justify-end self-end row-end-3">
+                  <Image
+                    src="/charlie.webp"
+                    alt="Charlie the dog"
+                    width={88}
+                    height={88}
+                    className="max-w-[88px] object-cover"
+                  />
+                </div>
               </div>
-              {errors.petType && <p className="text-red-500 font-medium text-sm mt-1">{errors.petType}</p>}
             </div>
+          </div>
+        </div>
 
-            {/* Pet Name */}
-            <div>
-              <Label htmlFor="petName" className="text-base font-medium text-gray-900">
-                Pet's name
-              </Label>
-              <Input
-                id="petName"
-                type="text"
-                value={state.petName || ""}
-                onChange={(e) => {
-                  updateState({ petName: e.target.value })
-                  if (errors.petName) setErrors((prev) => ({ ...prev, petName: "" }))
-                }}
-                className={`mt-1 ${errors.petName ? "border-red-500 focus-visible:ring-red-500" : ""}`}
-                placeholder="Enter your pet's name"
-              />
-              {errors.petName && <p className="text-red-500 font-medium text-sm mt-1">{errors.petName}</p>}
-            </div>
-
-            {/* Pet Breed */}
-            <div>
-              <Label htmlFor="petBreed" className="text-base font-medium text-gray-900">
-                Breed
-              </Label>
-              <Input
-                id="petBreed"
-                type="text"
-                value={state.petBreed || ""}
-                onChange={(e) => {
-                  updateState({ petBreed: e.target.value })
-                  if (errors.petBreed) setErrors((prev) => ({ ...prev, petBreed: "" }))
-                }}
-                className={`mt-1 ${errors.petBreed ? "border-red-500 focus-visible:ring-red-500" : ""}`}
-                placeholder="Enter your pet's breed"
-              />
-              {errors.petBreed && <p className="text-red-500 font-medium text-sm mt-1">{errors.petBreed}</p>}
-            </div>
-
-            {/* Pet Age */}
-            <div>
-              <Label htmlFor="petAge" className="text-base font-medium text-gray-900">
-                Age
-              </Label>
-              <Select
-                value={state.petAge || ""}
-                onValueChange={(value) => {
-                  updateState({ petAge: value })
-                  if (errors.petAge) setErrors((prev) => ({ ...prev, petAge: "" }))
-                }}
-              >
-                <SelectTrigger className={`mt-1 ${errors.petAge ? "border-red-500 focus-visible:ring-red-500" : ""}`}>
-                  <SelectValue placeholder="Select your pet's age" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="0-1">0-1 years</SelectItem>
-                  <SelectItem value="1-2">1-2 years</SelectItem>
-                  <SelectItem value="2-5">2-5 years</SelectItem>
-                  <SelectItem value="5-8">5-8 years</SelectItem>
-                  <SelectItem value="8+">8+ years</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.petAge && <p className="text-red-500 font-medium text-sm mt-1">{errors.petAge}</p>}
-            </div>
-
-            {/* Pet Gender */}
-            <div>
-              <Label htmlFor="petGender" className="text-base font-medium text-gray-900">
-                Gender
-              </Label>
-              <Select
-                value={state.petGender || ""}
-                onValueChange={(value) => {
-                  updateState({ petGender: value })
-                  if (errors.petGender) setErrors((prev) => ({ ...prev, petGender: "" }))
-                }}
-              >
-                <SelectTrigger
-                  className={`mt-1 ${errors.petGender ? "border-red-500 focus-visible:ring-red-500" : ""}`}
-                >
-                  <SelectValue placeholder="Select your pet's gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="male">Male</SelectItem>
-                  <SelectItem value="female">Female</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.petGender && <p className="text-red-500 font-medium text-sm mt-1">{errors.petGender}</p>}
-            </div>
-
-            {/* Medical History */}
-            <div>
-              <Label htmlFor="medicalHistory" className="text-base font-medium text-gray-900">
-                Medical history (optional)
-              </Label>
-              <Textarea
-                id="medicalHistory"
-                value={state.medicalHistory || ""}
-                onChange={(e) => updateState({ medicalHistory: e.target.value })}
-                className="mt-1"
-                placeholder="Please describe any pre-existing conditions, injuries, or ongoing treatments"
-                rows={4}
-              />
-            </div>
-
-            {/* reCAPTCHA */}
-            <div>
-              <Label className="text-base font-medium text-gray-900 mb-2 block">Security verification</Label>
-              <div className="flex items-center space-x-3">
-                <iframe
-                  title="reCAPTCHA"
-                  width="304"
-                  height="78"
-                  role="presentation"
-                  name="a-g465i2rviqg8"
-                  frameBorder="0"
-                  scrolling="no"
-                  sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
-                  src="https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LcTbS4rAAAAAP7Qp28DvV8y-owSPzFtDIiL8ZnP&co=aHR0cHM6Ly9wZXQuYnVkZHlwZXRpbnN1cmFuY2UuY29tLmF1OjQ0Mw..&hl=en&v=3jpV4E_UA9gZWYy11LtggjoU&size=normal&sa=LOGIN&anchor-ms=20000&execute-ms=15000&cb=6kiid0homon9"
+        {/* Mobile callout card - appears at top on mobile */}
+        <div className="block lg:hidden mx-4 mt-4 mb-6 absolute top-0 left-0 right-0 z-40">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-md">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="font-semibold text-gray-900 mb-2 text-base">Hi, I'm Charlie</h3>
+                <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                  I'll be helping you protect your fur-bestie today.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div>
+                    <strong className="text-gray-900">Did you know?</strong>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">
+                    Once covered, you'll get <strong className="text-pink-600">24/7 Live Vet Support</strong>, exclusive
+                    pet discounts and perks with <strong className="text-pink-600">myPetPass™</strong> and access to
+                    easy on-the-spot claims with <strong className="text-pink-600">GapOnly®</strong>.
+                  </p>
+                </div>
+              </div>
+              <div className="flex-shrink-0">
+                <Image
+                  src="/charlie.webp"
+                  alt="Charlie the dog"
+                  width={64}
+                  height={64}
+                  className="w-16 h-16 object-cover rounded-lg"
                 />
               </div>
-              {errors.recaptcha && <p className="text-red-500 font-medium text-sm mt-1">{errors.recaptcha}</p>}
             </div>
-
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-medium">
-              Continue
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

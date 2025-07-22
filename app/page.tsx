@@ -20,8 +20,8 @@ function PageContent() {
       </div>
 
       {/* Background elements with bottoms locked to top of footer */}
-      <div className="relative h-0 z-10">
-        <div className="absolute bottom-0 right-8 z-30 w-1/3 max-w-xs lg:max-w-md hidden lg:block pointer-events-none">
+      <div className="relative h-0">
+        <div className="absolute bottom-0 right-8 z-10 w-1/3 max-w-xs lg:max-w-md hidden lg:block pointer-events-none">
           <Image
             src="/dalmatian-mascot.svg"
             alt="Happy Dalmatian mascot"
@@ -31,7 +31,7 @@ function PageContent() {
           />
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full z-20 pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-full z-0 pointer-events-none">
           <Image
             src="/background-wave.svg"
             alt=""
