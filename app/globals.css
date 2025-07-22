@@ -1,0 +1,645 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Buddy Font";
+  src: url("/fonts/buddy-font.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Buddy Brand Colors */
+  --buddy-teal: #00d4c7;
+  --buddy-teal-light: #4fe6dc;
+  --buddy-teal-dark: #00b8ac;
+  --buddy-pink: #e91e63;
+  --buddy-pink-light: #f06292;
+  --buddy-pink-dark: #c2185b;
+  --buddy-navy: #475569;
+  --buddy-navy-dark: #334155;
+
+  /* Neutral Colors */
+  --buddy-gray-50: #f8fafc;
+  --buddy-gray-100: #f1f5f9;
+  --buddy-gray-200: #e2e8f0;
+  --buddy-gray-300: #cbd5e1;
+  --buddy-gray-600: #475569;
+  --buddy-gray-700: #334155;
+  --buddy-gray-900: #0f172a;
+
+  /* New Colors */
+  --buddy-bg-light: #f0f7f7;
+  --buddy-wave-teal: #00c4b4;
+
+  /* Shadows */
+  --buddy-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --buddy-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --buddy-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --buddy-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --buddy-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Border Radius */
+  --buddy-radius-sm: 0.375rem;
+  --buddy-radius: 0.5rem;
+  --buddy-radius-md: 0.75rem;
+  --buddy-radius-lg: 1rem;
+  --buddy-radius-xl: 1.5rem;
+  --buddy-radius-full: 9999px;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Buddy Font", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--buddy-gray-900);
+  background-color: var(--buddy-gray-50);
+}
+
+/* Typography */
+.buddy-heading-xl {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--buddy-gray-900);
+}
+
+.buddy-heading-lg {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--buddy-gray-900);
+}
+
+.buddy-heading-md {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--buddy-gray-900);
+}
+
+.buddy-text-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--buddy-gray-700);
+}
+
+.buddy-text-base {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--buddy-gray-700);
+}
+
+.buddy-text-sm {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--buddy-gray-600);
+}
+
+/* Layout Components */
+.buddy-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.buddy-container-sm {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.buddy-container-lg {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Header Styles */
+.buddy-header {
+  background: white;
+  border-bottom: 1px solid var(--buddy-gray-200);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.buddy-logo {
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--buddy-teal) 0%, var(--buddy-teal-dark) 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--buddy-radius);
+  font-weight: 700;
+  font-size: 1.125rem;
+  text-decoration: none;
+}
+
+.buddy-phone-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--buddy-pink);
+  color: var(--buddy-pink);
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--buddy-radius-full);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.buddy-phone-button:hover {
+  background: var(--buddy-pink);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Progress Bar */
+.buddy-progress-bar {
+  background: var(--buddy-navy);
+  padding: 1rem 0;
+}
+
+.buddy-progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.buddy-progress-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.buddy-progress-circle.completed {
+  background: var(--buddy-teal);
+  color: white;
+}
+
+.buddy-progress-circle.current {
+  background: var(--buddy-pink);
+  color: white;
+}
+
+.buddy-progress-circle.pending {
+  background: var(--buddy-gray-300);
+  color: var(--buddy-gray-600);
+}
+
+.buddy-progress-line {
+  height: 2px;
+  background: var(--buddy-gray-300);
+  transition: all 0.3s ease;
+}
+
+.buddy-progress-line.completed {
+  background: var(--buddy-teal);
+}
+
+/* Card Styles */
+.buddy-card {
+  background: white;
+  border-radius: var(--buddy-radius-lg);
+  box-shadow: var(--buddy-shadow-lg);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.buddy-card:hover {
+  box-shadow: var(--buddy-shadow-xl);
+  transform: translateY(-2px);
+}
+
+.buddy-card-clickable {
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.buddy-card-clickable:hover {
+  border-color: var(--buddy-teal);
+  transform: translateY(-4px);
+}
+
+.buddy-card-selected {
+  border-color: var(--buddy-pink);
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+}
+
+/* Button Styles */
+.buddy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--buddy-radius);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px; /* Touch-friendly */
+}
+
+.buddy-button-primary {
+  background: linear-gradient(135deg, var(--buddy-pink) 0%, var(--buddy-pink-dark) 100%);
+  color: white;
+  box-shadow: var(--buddy-shadow);
+}
+
+.buddy-button-primary:hover {
+  background: linear-gradient(135deg, var(--buddy-pink-dark) 0%, var(--buddy-pink) 100%);
+  box-shadow: var(--buddy-shadow-md);
+  transform: translateY(-1px);
+}
+
+.buddy-button-secondary {
+  background: white;
+  color: var(--buddy-gray-700);
+  border: 2px solid var(--buddy-gray-300);
+}
+
+.buddy-button-secondary:hover {
+  background: var(--buddy-gray-50);
+  border-color: var(--buddy-gray-400);
+}
+
+.buddy-button-outline {
+  background: transparent;
+  color: var(--buddy-pink);
+  border: 2px solid var(--buddy-pink);
+}
+
+.buddy-button-outline:hover {
+  background: var(--buddy-pink);
+  color: white;
+}
+
+.buddy-button-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  min-height: 56px;
+}
+
+.buddy-button-full {
+  width: 100%;
+}
+
+/* Form Styles */
+.buddy-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.buddy-label {
+  display: block;
+  font-weight: 600;
+  color: var(--buddy-gray-900);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.buddy-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--buddy-gray-300);
+  border-radius: var(--buddy-radius);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.buddy-input:focus {
+  outline: none;
+  border-color: var(--buddy-teal);
+  box-shadow: 0 0 0 3px rgba(0, 212, 199, 0.1);
+}
+
+.buddy-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--buddy-gray-300);
+  border-radius: var(--buddy-radius);
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.buddy-select:focus {
+  outline: none;
+  border-color: var(--buddy-teal);
+  box-shadow: 0 0 0 3px rgba(0, 212, 199, 0.1);
+}
+
+/* Background Gradients */
+.buddy-gradient-teal {
+  background: linear-gradient(135deg, var(--buddy-teal) 0%, var(--buddy-teal-dark) 100%);
+}
+
+.buddy-gradient-teal-light {
+  background: linear-gradient(135deg, var(--buddy-teal-light) 0%, var(--buddy-teal) 100%);
+}
+
+.buddy-gradient-diagonal {
+  background: linear-gradient(135deg, var(--buddy-teal) 0%, var(--buddy-teal-dark) 50%, var(--buddy-navy) 100%);
+}
+
+/* Cover Plan Cards */
+.buddy-plan-card {
+  background: white;
+  border-radius: var(--buddy-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--buddy-shadow-lg);
+  border: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.buddy-plan-card.selected {
+  border-color: var(--buddy-pink);
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+}
+
+.buddy-plan-header {
+  padding: 1rem;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.buddy-plan-header.gold {
+  background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+}
+
+.buddy-plan-header.silver {
+  background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+}
+
+.buddy-plan-header.bronze {
+  background: linear-gradient(135deg, #cd7f32 0%, #a0522d 100%);
+}
+
+.buddy-plan-content {
+  padding: 1.5rem;
+}
+
+.buddy-plan-price {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.buddy-plan-price-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--buddy-gray-900);
+}
+
+.buddy-plan-price-period {
+  font-size: 0.875rem;
+  color: var(--buddy-gray-600);
+}
+
+/* Alert/Notice Boxes */
+.buddy-alert {
+  padding: 1rem;
+  border-radius: var(--buddy-radius);
+  margin-bottom: 1rem;
+}
+
+.buddy-alert-info {
+  background: rgba(0, 212, 199, 0.1);
+  border: 1px solid rgba(0, 212, 199, 0.2);
+  color: var(--buddy-teal-dark);
+}
+
+.buddy-alert-success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #15803d;
+}
+
+.buddy-alert-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: #92400e;
+}
+
+/* Footer */
+.buddy-footer {
+  background: var(--buddy-navy);
+  color: white;
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+.buddy-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.buddy-footer-link {
+  color: white;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+}
+
+.buddy-footer-link:hover {
+  color: var(--buddy-teal-light);
+}
+
+.buddy-footer-text {
+  font-size: 0.75rem;
+  color: var(--buddy-gray-300);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .buddy-heading-xl {
+    font-size: 1.875rem;
+  }
+
+  .buddy-heading-lg {
+    font-size: 1.5rem;
+  }
+
+  .buddy-container {
+    padding: 0 0.75rem;
+  }
+
+  .buddy-button {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .buddy-button-lg {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .buddy-progress-circle {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
+  }
+
+  .buddy-phone-button {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Animation Classes */
+.buddy-fade-in {
+  animation: buddyFadeIn 0.5s ease-out;
+}
+
+.buddy-slide-up {
+  animation: buddySlideUp 0.5s ease-out;
+}
+
+@keyframes buddyFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes buddySlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Classes */
+.buddy-text-center {
+  text-align: center;
+}
+.buddy-text-left {
+  text-align: left;
+}
+.buddy-text-right {
+  text-align: right;
+}
+
+.buddy-flex {
+  display: flex;
+}
+.buddy-flex-col {
+  flex-direction: column;
+}
+.buddy-items-center {
+  align-items: center;
+}
+.buddy-justify-center {
+  justify-content: center;
+}
+.buddy-justify-between {
+  justify-content: space-between;
+}
+
+.buddy-gap-2 {
+  gap: 0.5rem;
+}
+.buddy-gap-4 {
+  gap: 1rem;
+}
+.buddy-gap-6 {
+  gap: 1.5rem;
+}
+.buddy-gap-8 {
+  gap: 2rem;
+}
+
+.buddy-p-4 {
+  padding: 1rem;
+}
+.buddy-p-6 {
+  padding: 1.5rem;
+}
+.buddy-p-8 {
+  padding: 2rem;
+}
+
+.buddy-m-4 {
+  margin: 1rem;
+}
+.buddy-m-6 {
+  margin: 1.5rem;
+}
+.buddy-m-8 {
+  margin: 2rem;
+}
+
+.buddy-mb-4 {
+  margin-bottom: 1rem;
+}
+.buddy-mb-6 {
+  margin-bottom: 1.5rem;
+}
+.buddy-mb-8 {
+  margin-bottom: 2rem;
+}
+
+.buddy-w-full {
+  width: 100%;
+}
+.buddy-h-full {
+  height: 100%;
+}
+
+.buddy-rounded {
+  border-radius: var(--buddy-radius);
+}
+.buddy-rounded-lg {
+  border-radius: var(--buddy-radius-lg);
+}
+.buddy-rounded-xl {
+  border-radius: var(--buddy-radius-xl);
+}
+.buddy-rounded-full {
+  border-radius: var(--buddy-radius-full);
+}
+
+.buddy-shadow {
+  box-shadow: var(--buddy-shadow);
+}
+.buddy-shadow-lg {
+  box-shadow: var(--buddy-shadow-lg);
+}
+.buddy-shadow-xl {
+  box-shadow: var(--buddy-shadow-xl);
+}
