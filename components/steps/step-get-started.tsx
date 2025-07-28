@@ -13,7 +13,7 @@ export function StepGetStarted() {
   }
 
   return (
-    <div className="w-full max-w-[632px] bg-white p-8 md:p-12 rounded-lg buddy-shadow-xl ml-12 mt-10 mb-10">
+    <div className="w-full max-w-[632px] bg-white p-8 md:p-12 rounded-xl buddy-shadow-xl ml-12 mt-10 mb-10">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">Hi there, welcome to Buddy!</h1>
         <p className="text-3xl font-bold text-gray-800">Let's get started, do you have a...</p>
@@ -21,7 +21,7 @@ export function StepGetStarted() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <button
-          className="bg-background hover:border-ring border-input hover:bg-blue-ultralight hover:text-secondary-foreground text-foreground group flex h-[180px] flex-col items-center justify-center gap-4 rounded-lg border p-6 transition-all md:w-[244px]"
+          className="bg-background hover:border-ring border-input hover:bg-blue-ultralight hover:text-secondary-foreground text-foreground group flex h-[180px] flex-col items-center justify-center gap-4 rounded-xl border p-6 transition-all md:w-[244px]"
           onClick={() => handlePetSelection("dog")}
           data-gtm-event="step1-dog-selected"
         >
@@ -32,7 +32,7 @@ export function StepGetStarted() {
         </button>
 
         <button
-          className="bg-background hover:border-ring border-input hover:bg-blue-ultralight hover:text-secondary-foreground text-foreground group flex h-[180px] flex-col items-center justify-center gap-4 rounded-lg border p-6 transition-all md:w-[244px]"
+          className="bg-background hover:border-ring border-input hover:bg-blue-ultralight hover:text-secondary-foreground text-foreground group flex h-[180px] flex-col items-center justify-center gap-4 rounded-xl border p-6 transition-all md:w-[244px]"
           onClick={() => handlePetSelection("cat")}
           data-gtm-event="step1-cat-selected"
         >

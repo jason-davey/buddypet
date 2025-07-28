@@ -16,7 +16,25 @@ export function StepYourDetails() {
   const handleInputChange = (field: string, value: string) => {
     const updatedData = { ...formData, [field]: value }
     setFormData(updatedData)
-    dispatch({ type: "UPDATE_PERSONAL_DETAILS", payload: updatedData })
+    dispatch({
+      type: "UPDATE_PERSONAL_DETAILS",
+      payload: {
+        firstName: updatedData.firstName || "",
+        lastName: updatedData.lastName || "",
+        dateOfBirth: updatedData.dateOfBirth || "",
+        postcode: updatedData.postcode || "",
+        state: updatedData.state || "",
+        phone: updatedData.phone || "",
+        email: updatedData.email || "",
+        title: updatedData.title || "",
+        address: updatedData.address || "",
+        authorizedPerson: updatedData.authorizedPerson || "",
+        authorizedFirstName: updatedData.authorizedFirstName || "",
+        authorizedLastName: updatedData.authorizedLastName || "",
+        authorizedDob: updatedData.authorizedDob || "",
+        documentDelivery: updatedData.documentDelivery || ""
+      },
+    })
   }
 
   const handleContinue = () => {
@@ -34,7 +52,7 @@ export function StepYourDetails() {
         <div className="flex w-full max-w-7xl gap-8">
           {/* Form Section */}
           <div className="w-full max-w-[632px]">
-            <Card className="bg-white shadow-lg rounded-lg">
+            <Card className="bg-white shadow-lg rounded-xl">
               <CardContent className="p-6 lg:p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6" id="step4-your-details">
                   Your details
@@ -48,9 +66,10 @@ export function StepYourDetails() {
                         <Button
                           key={title}
                           type="button"
-                          variant={formData.title === title ? "default" : "outline"}
+                          variant={formData.title === title ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handleInputChange("title", title)}
-                          className="h-10 text-sm"
+                          className="text-sm"
                         >
                           {title}
                         </Button>
@@ -81,7 +100,7 @@ export function StepYourDetails() {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <Label className="text-base font-medium">Authorised Person</Label>
-                      <div className="w-4 h-4 rounded-full border border-gray-400 flex items-center justify-center">
+                      <div className="w-4 h-4 rounded-3xl border border-gray-400 flex items-center justify-center">
                         <span className="text-xs text-gray-600">i</span>
                       </div>
                     </div>
@@ -92,17 +111,17 @@ export function StepYourDetails() {
                     <div className="grid grid-cols-2 gap-4">
                       <Button
                         type="button"
-                        variant={formData.authorizedPerson === "yes" ? "default" : "outline"}
+                        variant={formData.authorizedPerson === "yes" ? "radio" : "radio-outline"}
+                        size="radio"
                         onClick={() => handleInputChange("authorizedPerson", "yes")}
-                        className="h-12"
                       >
                         Yes
                       </Button>
                       <Button
                         type="button"
-                        variant={formData.authorizedPerson === "no" ? "default" : "outline"}
+                        variant={formData.authorizedPerson === "no" ? "radio" : "radio-outline"}
+                        size="radio"
                         onClick={() => handleInputChange("authorizedPerson", "no")}
-                        className="h-12"
                       >
                         No
                       </Button>
@@ -145,13 +164,14 @@ export function StepYourDetails() {
                         <Label htmlFor="authDob" className="text-sm font-medium text-gray-700">
                           Their date of birth
                         </Label>
-                        <Input
-                          id="authDob"
-                          type="date"
-                          value={formData.authorizedDob || ""}
-                          onChange={(e) => handleInputChange("authorizedDob", e.target.value)}
-                          className="mt-1"
-                        />
+                        <div className="mt-1">
+                          <Input
+                            id="authDob"
+                            type="date"
+                            value={formData.authorizedDob || ""}
+                            onChange={(e) => handleInputChange("authorizedDob", e.target.value)}
+                          />
+                        </div>
                         <p className="text-xs text-gray-500 mt-1">
                           An additional authorised person must be over 18 years old.
                         </p>
@@ -166,17 +186,17 @@ export function StepYourDetails() {
                     <div className="grid grid-cols-2 gap-4">
                       <Button
                         type="button"
-                        variant={formData.documentDelivery === "email" ? "default" : "outline"}
+                        variant={formData.documentDelivery === "email" ? "radio" : "radio-outline"}
+                        size="radio"
                         onClick={() => handleInputChange("documentDelivery", "email")}
-                        className="h-12"
                       >
                         Email
                       </Button>
                       <Button
                         type="button"
-                        variant={formData.documentDelivery === "post" ? "default" : "outline"}
+                        variant={formData.documentDelivery === "post" ? "radio" : "radio-outline"}
+                        size="radio"
                         onClick={() => handleInputChange("documentDelivery", "post")}
-                        className="h-12"
                       >
                         Post
                       </Button>
@@ -188,7 +208,7 @@ export function StepYourDetails() {
 
                   <div className="flex flex-col gap-4 pt-4">
                     <Button
-                      className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-medium rounded-full"
+                      className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-medium rounded-3xl"
                       onClick={handleContinue}
                       data-gtm-event="step4-details-submitted"
                     >
@@ -197,7 +217,7 @@ export function StepYourDetails() {
                     <Button
                       variant="outline"
                       onClick={handleBack}
-                      className="w-full h-14 text-lg font-medium rounded-full border-2 border-pink-500 text-gray-800 bg-transparent hover:bg-pink-50"
+                      className="w-full h-14 text-lg font-medium rounded-3xl border-2 border-pink-500 text-gray-800 bg-transparent hover:bg-pink-50"
                     >
                       Back
                     </Button>
@@ -227,7 +247,7 @@ export function StepYourDetails() {
               <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
               {/* Main callout content */}
-              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
+              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-xl lg:p-4 lg:px-6 lg:pr-0">
                 {/* First section - You're almost there */}
                 <div className="flex flex-col gap-2 pr-5 lg:pr-2">
                   <div className="flex items-center gap-1">
@@ -276,7 +296,7 @@ export function StepYourDetails() {
 
         {/* Mobile callout card - appears at top on mobile */}
         <div className="block lg:hidden mx-4 mt-4 mb-6 absolute top-0 left-0 right-0 z-40">
-          <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-md">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-md">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 mb-2 text-base">You're almost there!</h3>
@@ -300,7 +320,7 @@ export function StepYourDetails() {
                   alt="Charlie the dog"
                   width={64}
                   height={64}
-                  className="w-16 h-16 object-cover rounded-lg"
+                  className="w-16 h-16 object-cover rounded-xl"
                 />
               </div>
             </div>

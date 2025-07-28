@@ -30,7 +30,24 @@ export function StepProtectYourPet() {
   const handleInputChange = (field: string, value: string) => {
     const updatedData = { ...formData, [field]: value }
     setFormData(updatedData)
-    dispatch({ type: "UPDATE_COVER_DETAILS", payload: updatedData })
+    dispatch({
+      type: "UPDATE_COVER_DETAILS",
+      payload: {
+        plan: state.coverDetails.plan || "bronze",
+        startDate: updatedData.startDate || "",
+        paymentMethod: updatedData.paymentMethod || "direct-debit",
+        accountName: updatedData.accountName || "",
+        bsb: updatedData.bsb || "",
+        accountNumber: updatedData.accountNumber || "",
+        cardNumber: updatedData.cardNumber,
+        cardExpiry: updatedData.cardExpiry,
+        cardCVC: updatedData.cardCVC,
+        cardName: updatedData.cardName,
+        expiryMonth: updatedData.expiryMonth,
+        expiryYear: updatedData.expiryYear,
+        paymentFrequency: state.coverDetails.paymentFrequency || ""
+      },
+    })
 
     // Clear error when user starts typing
     if (errors[field as keyof ValidationErrors]) {
@@ -182,7 +199,7 @@ export function StepProtectYourPet() {
           <div className="flex w-full max-w-7xl gap-8">
             {/* Form Section */}
             <div className="w-full max-w-[632px]">
-              <Card className="bg-white shadow-lg rounded-lg">
+              <Card className="bg-white shadow-lg rounded-xl">
                 <CardContent className="p-6 sm:p-8">
                   <div className="mb-6">
                     <p className="text-2xl font-bold">
@@ -191,9 +208,9 @@ export function StepProtectYourPet() {
                     </p>
                   </div>
 
-                  <div className="bg-green-50 border border-green-200 p-4 rounded-lg mb-6">
+                  <div className="bg-green-50 border border-green-200 p-4 rounded-xl mb-6">
                     <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                      <div className="w-4 h-4 bg-green-500 rounded-3xl"></div>
                       <span className="text-green-800 font-medium">Promotion applied: First month free offer*</span>
                     </div>
                     <a
@@ -220,9 +237,8 @@ export function StepProtectYourPet() {
                           value={formData.startDate || ""}
                           onChange={(e) => handleInputChange("startDate", e.target.value)}
                           onBlur={() => handleBlur("startDate")}
-                          className={`pr-10 ${hasFieldError("startDate") ? "border-red-500" : ""}`}
+                          className={`${hasFieldError("startDate") ? "border-red-500" : ""}`}
                         />
-                        <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
                       </div>
                       {getFieldError("startDate") && (
                         <p className="text-sm text-red-500 mt-1">{getFieldError("startDate")}</p>
@@ -238,7 +254,8 @@ export function StepProtectYourPet() {
                       <div className="flex gap-4 mt-2">
                         <Button
                           type="button"
-                          variant={formData.paymentMethod === "direct-debit" ? "default" : "outline"}
+                          variant={formData.paymentMethod === "direct-debit" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handleInputChange("paymentMethod", "direct-debit")}
                           className="flex-1"
                         >
@@ -246,7 +263,8 @@ export function StepProtectYourPet() {
                         </Button>
                         <Button
                           type="button"
-                          variant={formData.paymentMethod === "credit-card" ? "default" : "outline"}
+                          variant={formData.paymentMethod === "credit-card" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handleInputChange("paymentMethod", "credit-card")}
                           className="flex-1"
                         >
@@ -400,7 +418,7 @@ export function StepProtectYourPet() {
 
                     <div className="flex flex-col gap-4">
                       <Button
-                        className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-medium rounded-full"
+                        className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-medium rounded-3xl"
                         onClick={handleProtectPet}
                         data-gtm-event="step6-protect-pet-submitted"
                         id="step6-protect-your-pet"
@@ -426,7 +444,7 @@ export function StepProtectYourPet() {
                         <TooltipContent
                           side="top"
                           align="center"
-                          className="relative max-w-xs bg-gray-900 text-white border-gray-900 shadow-lg rounded-lg p-3 z-[9999] overflow-visible"
+                          className="relative max-w-xs bg-gray-900 text-white border-gray-900 shadow-lg rounded-xl p-3 z-[9999] overflow-visible"
                           sideOffset={8}
                         >
                           <span className="text-xs leading-relaxed block">
@@ -450,7 +468,7 @@ export function StepProtectYourPet() {
                       <Button
                         variant="outline"
                         onClick={handleBack}
-                        className="w-full h-14 text-lg font-medium rounded-full border-2 border-pink-500 text-gray-800 bg-transparent hover:bg-pink-50"
+                        className="w-full h-14 text-lg font-medium rounded-3xl border-2 border-pink-500 text-gray-800 bg-transparent hover:bg-pink-50"
                       >
                         Back
                       </Button>
@@ -467,7 +485,7 @@ export function StepProtectYourPet() {
                 <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
                 {/* Main callout content */}
-                <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
+                <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-xl lg:p-4 lg:px-6 lg:pr-0">
                   <div className="flex flex-col gap-2 pr-5 lg:pr-2">
                     <div className="flex items-center gap-1">
                       <h2 className="font-semibold text-gray-900 leading-5">Last step!</h2>
@@ -494,7 +512,7 @@ export function StepProtectYourPet() {
 
           {/* Mobile callout card */}
           <div className="block lg:hidden mx-4 mt-4 mb-6 absolute top-0 left-0 right-0 z-40">
-            <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-md">
+            <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-md">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 mb-2 text-base">Congratulations!</h3>
@@ -508,7 +526,7 @@ export function StepProtectYourPet() {
                     alt="Charlie the dog"
                     width={64}
                     height={64}
-                    className="w-16 h-16 object-cover rounded-lg"
+                    className="w-16 h-16 object-cover rounded-xl"
                   />
                 </div>
               </div>

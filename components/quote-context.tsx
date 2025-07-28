@@ -22,6 +22,13 @@ interface PersonalDetails {
   state: string
   phone: string
   email: string
+  title: string
+  address: string
+  authorizedPerson: string
+  authorizedFirstName: string
+  authorizedLastName: string
+  authorizedDob: string
+  documentDelivery: string
 }
 
 interface CoverDetails {
@@ -34,6 +41,10 @@ interface CoverDetails {
   cardNumber?: string
   cardExpiry?: string
   cardCVC?: string
+  cardName?: string
+  expiryMonth?: string
+  expiryYear?: string
+  paymentFrequency?: string
 }
 
 interface QuoteState {

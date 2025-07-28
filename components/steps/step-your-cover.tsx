@@ -152,14 +152,14 @@ const CareToggle = ({
         <HelpCircle className="inline-block h-4 w-4" />
       </button>
     </label>
-    <div role="radiogroup" className="relative flex h-10 flex-row rounded-full border border-gray-900 p-0.5">
+    <div role="radiogroup" className="relative flex h-10 flex-row rounded-3xl border border-gray-900 p-0.5">
       <button
         type="button"
         role="radio"
         aria-checked={!enabled}
         onClick={() => onToggle(false)}
         className={cn(
-          "flex h-full w-14 items-center justify-center rounded-full border-0 px-0 text-sm font-semibold transition-colors",
+          "flex h-full w-14 items-center justify-center rounded-3xl border-0 px-0 text-sm font-semibold transition-colors",
           !enabled ? "bg-gray-900 text-white" : "bg-white text-gray-900",
         )}
       >
@@ -171,7 +171,7 @@ const CareToggle = ({
         aria-checked={enabled}
         onClick={() => onToggle(true)}
         className={cn(
-          "flex h-full w-14 items-center justify-center rounded-full border-0 px-0 text-sm font-semibold transition-colors",
+          "flex h-full w-14 items-center justify-center rounded-3xl border-0 px-0 text-sm font-semibold transition-colors",
           enabled ? "bg-gray-900 text-white" : "bg-white text-gray-900",
         )}
       >
@@ -203,7 +203,7 @@ const CoverPlanCard = ({
         isSelected ? "border-black ring-2 ring-black" : "border-gray-200",
       )}
     >
-      <div className="rounded-t-md bg-gray-800 p-4 text-center text-2xl font-semibold text-white">{plan.name}</div>
+      <div className="rounded-t-xl bg-gray-800 p-4 text-center text-2xl font-semibold text-white">{plan.name}</div>
       <div className="flex flex-col items-center gap-2">
         <p className="flex items-center gap-2 text-gray-800">
           <Tag className="h-5 w-5 text-teal-500" />
@@ -414,14 +414,14 @@ const ConfirmationAccordion = ({
             type="button"
             onClick={() => onConfirm(true)}
             variant="outline"
-            className="rounded-full border-pink-500 text-pink-500 hover:bg-pink-500/10 bg-transparent px-12 py-3"
+            className="rounded-3xl border-pink-500 text-pink-500 hover:bg-pink-500/10 bg-transparent px-12 py-3"
           >
             Yes
           </Button>
           <Button
             type="button"
             onClick={() => onConfirm(false)}
-            className="rounded-full bg-pink-500 text-white hover:bg-pink-600 px-12 py-3"
+            className="rounded-3xl bg-pink-500 text-white hover:bg-pink-600 px-12 py-3"
           >
             No
           </Button>
@@ -465,7 +465,7 @@ export function StepYourCover() {
       },
     }
 
-    const basePrice = pricingData[plan.id][newExcess] || plan.basePrice
+    const basePrice = pricingData[plan.id][newExcess as 0 | 200 | 500] || plan.basePrice
 
     const calculateAdjustedPrice = (base: number, freq: Frequency) => {
       let adjusted = base
@@ -488,8 +488,9 @@ export function StepYourCover() {
           },
         }
 
-        const excessKey = newExcess as keyof typeof boosterCosts.Gold
-        if (boosterCosts[plan.id][excessKey]) {
+        const excessKey = newExcess as 0 | 200 | 500
+        // Check if the excess key exists for this plan
+        if (boosterCosts[plan.id] && boosterCosts[plan.id][excessKey]) {
           adjusted += boosterCosts[plan.id][excessKey][freq]
         }
       }
@@ -539,8 +540,12 @@ export function StepYourCover() {
           type: "UPDATE_COVER_DETAILS",
           payload: {
             plan: finalPlan.id.toLowerCase() as "gold" | "silver" | "bronze",
+            startDate: state.coverDetails.startDate || "",
+            paymentMethod: state.coverDetails.paymentMethod || "direct-debit",
+            accountName: state.coverDetails.accountName || "",
+            bsb: state.coverDetails.bsb || "",
+            accountNumber: state.coverDetails.accountNumber || "",
             paymentFrequency: frequency,
-            ...finalPlan,
           },
         })
         dispatch({ type: "NEXT_STEP" })
@@ -565,7 +570,7 @@ export function StepYourCover() {
   return (
     <div className="w-full lg:px-8 lg:py-10">
       <form
-        className="mx-auto w-full max-w-container overflow-hidden bg-white lg:rounded-lg lg:shadow-lg"
+        className="mx-auto w-full max-w-container overflow-hidden bg-white lg:rounded-xl lg:shadow-lg"
         onSubmit={(e) => {
           e.preventDefault()
           handleContinue()
@@ -691,14 +696,14 @@ export function StepYourCover() {
                 type="button"
                 onClick={handleBack}
                 variant="outline"
-                className="h-16 w-full rounded-full border-pink-500 text-gray-900 hover:bg-pink-500/10 focus:outline-2 md:w-40 bg-transparent"
+                className="h-16 w-full rounded-3xl border-pink-500 text-gray-900 hover:bg-pink-500/10 focus:outline-2 md:w-40 bg-transparent"
               >
                 Back
               </Button>
               <Button
                 type="submit"
                 disabled={!selectedPlan || !showConfirmation}
-                className="h-16 w-full rounded-full border border-pink-500 bg-pink-500 text-white hover:enabled:bg-pink-600 hover:enabled:border-pink-600 focus:outline-2 disabled:pointer-events-none disabled:opacity-50 md:max-w-full"
+                className="h-16 w-full rounded-3xl border border-pink-500 bg-pink-500 text-white hover:enabled:bg-pink-600 hover:enabled:border-pink-600 focus:outline-2 disabled:pointer-events-none disabled:opacity-50 md:max-w-full"
               >
                 Continue
               </Button>

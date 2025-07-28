@@ -37,7 +37,7 @@ export function ProgressBar() {
                     className="relative bg-[#384559] z-10 flex items-center gap-1 px-2 text-center text-white first:pl-0 md:gap-5 md:px-4 cursor-default"
                     aria-current={isCurrent ? "step" : undefined}
                   >
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full text-lg sm:h-10 sm:w-10">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-3xl text-lg sm:h-10 sm:w-10">
                       {isCompleted ? <CheckCircleIcon /> : <PawIcon stepNumber={step.number} isCurrent={isCurrent} />}
                     </span>
                     <span className="hidden text-xs font-medium text-white sm:text-sm md:block">{step.name}</span>

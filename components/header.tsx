@@ -42,7 +42,7 @@ export function Header() {
           </Button>
           <a
             href="tel:1300678489"
-            className="hidden sm:flex items-center gap-2 rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100"
+            className="hidden sm:flex items-center gap-2 rounded-3xl border border-gray-300 px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100"
           >
             <Phone className="h-5 w-5 text-pink-500" />
             <span>

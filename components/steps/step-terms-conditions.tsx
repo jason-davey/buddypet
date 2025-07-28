@@ -26,7 +26,7 @@ export function StepTermsConditions() {
         <div className="flex w-full max-w-7xl gap-8">
           {/* Form Section */}
           <div className="w-full max-w-[632px]">
-            <Card className="bg-white shadow-lg rounded-lg">
+            <Card className="bg-white shadow-lg rounded-xl">
               <CardContent className="p-6 sm:p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6" id="step5-terms-conditions">
                   Agree to these terms
@@ -273,7 +273,7 @@ export function StepTermsConditions() {
 
                 <div className="flex flex-col gap-4">
                   <Button
-                    className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-medium rounded-full"
+                    className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-medium rounded-3xl"
                     onClick={handleAgree}
                     data-gtm-event="step5-terms-accepted"
                   >
@@ -282,7 +282,7 @@ export function StepTermsConditions() {
                   <Button
                     variant="outline"
                     onClick={handleBack}
-                    className="w-full h-14 text-lg font-medium rounded-full border-2 border-pink-500 text-gray-800 bg-transparent hover:bg-pink-50"
+                    className="w-full h-14 text-lg font-medium rounded-3xl border-2 border-pink-500 text-gray-800 bg-transparent hover:bg-pink-50"
                   >
                     Back
                   </Button>
@@ -298,7 +298,7 @@ export function StepTermsConditions() {
               <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
               {/* Main callout content */}
-              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
+              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-xl lg:p-4 lg:px-6 lg:pr-0">
                 <div className="flex flex-col gap-2 pr-5 lg:pr-2">
                   <div className="flex items-center gap-1">
                     <h2 className="font-semibold text-gray-900 leading-5">Thanks, nearly there!</h2>
@@ -326,7 +326,7 @@ export function StepTermsConditions() {
 
         {/* Mobile callout card */}
         <div className="block lg:hidden mx-4 mt-4 mb-6 absolute top-0 left-0 right-0 z-40">
-          <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-md">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-md">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 mb-2 text-base">Thanks, nearly there!</h3>
@@ -341,7 +341,7 @@ export function StepTermsConditions() {
                   alt="Charlie the dog"
                   width={64}
                   height={64}
-                  className="w-16 h-16 object-cover rounded-lg"
+                  className="w-16 h-16 object-cover rounded-xl"
                 />
               </div>
             </div>

@@ -123,7 +123,7 @@ export function StepYourPet() {
         <div className="flex w-full max-w-7xl gap-8">
           {/* Form Section */}
           <div className="w-full max-w-[632px]">
-            <Card className="bg-white shadow-lg rounded-lg">
+            <Card className="bg-white shadow-lg rounded-xl">
               <CardContent className="p-6 sm:p-8">
                 <p className="text-sm md:text-base text-gray-700 mb-6">
                   It only takes a few minutes to get a Buddy Pet Insurance quote. Simply complete this form to get a
@@ -153,17 +153,19 @@ export function StepYourPet() {
                       <div className="grid grid-cols-2 gap-4 mt-2">
                         <Button
                           type="button"
-                          variant={petData.gender === "male" ? "default" : "outline"}
+                          variant={petData.gender === "male" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handlePetInputChange("gender", "male")}
-                          className={cn("w-full", errors.gender && "border-red-500")}
+                          className={cn(errors.gender && "border-red-500")}
                         >
                           Male
                         </Button>
                         <Button
                           type="button"
-                          variant={petData.gender === "female" ? "default" : "outline"}
+                          variant={petData.gender === "female" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handlePetInputChange("gender", "female")}
-                          className={cn("w-full", errors.gender && "border-red-500")}
+                          className={cn(errors.gender && "border-red-500")}
                         >
                           Female
                         </Button>
@@ -176,7 +178,8 @@ export function StepYourPet() {
                       <div className="grid grid-cols-3 gap-4 mt-2">
                         <Button
                           type="button"
-                          variant={petData.desexed === "yes" ? "default" : "outline"}
+                          variant={petData.desexed === "yes" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handlePetInputChange("desexed", "yes")}
                           className={cn(errors.desexed && "border-red-500")}
                         >
@@ -184,7 +187,8 @@ export function StepYourPet() {
                         </Button>
                         <Button
                           type="button"
-                          variant={petData.desexed === "no" ? "default" : "outline"}
+                          variant={petData.desexed === "no" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handlePetInputChange("desexed", "no")}
                           className={cn(errors.desexed && "border-red-500")}
                         >
@@ -192,7 +196,8 @@ export function StepYourPet() {
                         </Button>
                         <Button
                           type="button"
-                          variant={petData.desexed === "unknown" ? "default" : "outline"}
+                          variant={petData.desexed === "unknown" ? "radio" : "radio-outline"}
+                          size="radio"
                           onClick={() => handlePetInputChange("desexed", "unknown")}
                           className={cn(errors.desexed && "border-red-500")}
                         >
@@ -224,13 +229,12 @@ export function StepYourPet() {
 
                     <div>
                       <Label className="text-base font-semibold text-gray-800">When was your pet born?</Label>
-                      <div className="relative mt-2">
+                      <div className="mt-2">
                         <Input
                           type="date"
                           onChange={(e) => handlePetInputChange("age", e.target.value)}
-                          className={cn("pr-10", errors.age && "border-red-500 focus-visible:ring-red-500")}
+                          className={cn(errors.age && "border-red-500 focus-visible:ring-red-500")}
                         />
-                        <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
                       </div>
                       {errors.age && <p className="text-sm text-red-500 mt-1">{errors.age}</p>}
                       <p className="text-sm text-gray-500 mt-1">
@@ -292,13 +296,12 @@ export function StepYourPet() {
 
                       <div>
                         <Label className="text-base font-semibold text-gray-800">Your date of birth</Label>
-                        <div className="relative mt-2">
+                        <div className="mt-2">
                           <Input
                             type="date"
                             onChange={(e) => handlePersonalInputChange("dateOfBirth", e.target.value)}
-                            className={cn("pr-10", errors.dateOfBirth && "border-red-500 focus-visible:ring-red-500")}
+                            className={cn(errors.dateOfBirth && "border-red-500 focus-visible:ring-red-500")}
                           />
-                          <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-pink-500" />
                         </div>
                         {errors.dateOfBirth && <p className="text-sm text-red-500 mt-1">{errors.dateOfBirth}</p>}
                         <p className="text-sm text-gray-500 mt-1">
@@ -385,7 +388,7 @@ export function StepYourPet() {
                       </div>
                     </div>
 
-                    <div className="my-6 p-4 border rounded-md bg-gray-50 flex items-center justify-between">
+                    <div className="my-6 p-4 border rounded-xl bg-gray-50 flex items-center justify-between">
                       <Label htmlFor="robot" className="text-gray-700">
                         I'm not a robot
                       </Label>
@@ -395,7 +398,7 @@ export function StepYourPet() {
                     <div className="flex flex-col gap-4 pt-6">
                       <Button
                         type="submit"
-                        className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-semibold rounded-full"
+                        className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 h-14 text-lg font-semibold rounded-3xl"
                         data-gtm-event="step2-pet-submitted"
                       >
                         Compare your cover options
@@ -404,7 +407,7 @@ export function StepYourPet() {
                         type="button"
                         variant="outline"
                         onClick={handleBack}
-                        className="w-full py-3 h-14 text-lg font-semibold rounded-full border-pink-500 text-gray-800 bg-transparent"
+                        className="w-full py-3 h-14 text-lg font-semibold rounded-3xl border-pink-500 text-gray-800 bg-transparent"
                       >
                         Back
                       </Button>
@@ -436,7 +439,7 @@ export function StepYourPet() {
               <div className="absolute -left-4 top-1/2 z-50 hidden h-8 w-8 -translate-y-1/2 rotate-45 transform bg-white lg:block"></div>
 
               {/* Main callout content */}
-              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-lg lg:p-4 lg:px-6 lg:pr-0">
+              <div className="grid w-full grid-cols-[1fr_96px] items-end gap-4 gap-x-2 overflow-hidden bg-white p-4 px-6 pr-0 pt-3 shadow-md md:items-center lg:min-h-24 lg:justify-center lg:rounded-xl lg:p-4 lg:px-6 lg:pr-0">
                 {/* First section - Hi, I'm Charlie */}
                 <div className="flex flex-col gap-2 pr-5 lg:pr-2">
                   <div className="flex items-center gap-1">
@@ -484,7 +487,7 @@ export function StepYourPet() {
 
         {/* Mobile callout card - appears at top on mobile */}
         <div className="block lg:hidden mx-4 mt-4 mb-6 absolute top-0 left-0 right-0 z-40">
-          <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-md">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-md">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 mb-2 text-base">Hi, I'm Charlie</h3>
@@ -508,7 +511,7 @@ export function StepYourPet() {
                   alt="Charlie the dog"
                   width={64}
                   height={64}
-                  className="w-16 h-16 object-cover rounded-lg"
+                  className="w-16 h-16 object-cover rounded-xl"
                 />
               </div>
             </div>
